@@ -4,7 +4,7 @@
     <hr class="my-4">
     <div class="row g-5 align-items-center justify-content-center">
         <div class="col-md-6 col-lg-8 col-sm-12 text-center">
-            <h4 class="mb-3">Add Employee</h4>
+            <h4 class="mb-3">Add Customer</h4>
             {% if messages %}
                 {% for message in messages %}
                     {% if message.tags == 'error' %}
@@ -14,12 +14,12 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
-            <form class="needs-validation" method="post" action="{% url 'create-employee' %}">
+            <form class="needs-validation" method="post" action="{% url 'create-customer' %}">
                 {% csrf_token %}
                 <div class="row g-3">
                     <div class="col-sm-12">
-                        <label for="firstName" class="form-label">Employee Name</label>
-                        <input type="text" class="form-control" id="firstName" name="name" placeholder="Employee Name"
+                        <label for="firstName" class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" id="firstName" name="name" placeholder="Customer Name"
                                required>
                     </div>
 
@@ -38,9 +38,9 @@
                     </div>
 
                     <div class="col-md-6">
-                        <label for="salary" class="form-label">Salary</label>
-                        <input type="number" name="salary" required class="form-control" id="salary"
-                               placeholder="Salary">
+                        <label for="salary" class="form-label">Medicine Price</label>
+                        <input type="number" name="medicine_price" required class="form-control" id="salary"
+                               placeholder="Medicine Price">
                     </div>
 
                     <div class="col-md-6">
@@ -50,7 +50,7 @@
                     </div>
                 </div>
                 <hr class="my-4">
-                <button class="w-100 btn btn-primary btn-sm" type="submit">Add</button>
+                <button class="w-100 btn btn-primary btn-sm" type="submit">Add Customer</button>
             </form>
         </div>
     </div>

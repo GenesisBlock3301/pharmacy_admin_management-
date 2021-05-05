@@ -3,38 +3,18 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    {#    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">#}
-{#    <meta name="generator" content="Hugo 0.82.0">#}
-    <title>Dashboard Template · Bootstrap v5.0</title>
+    <title></title>
 
-{#    <link rel="canonical" href="https://getbootstrap.com/docs/5.0/examples/dashboard/">#}
-
-
+    <meta charset="urf-8" name="viewport" content="width=device-width, initial-scale=1"/>
     <!-- Bootstrap core CSS -->
-    {#<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">#}
-    <link href="{% static 'assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
-
-    <style>
-        .bd-placeholder-img {
-            font-size: 1.125rem;
-            text-anchor: middle;
-            -webkit-user-select: none;
-            -moz-user-select: none;
-            user-select: none;
-        }
-
-        @media (min-width: 768px) {
-            .bd-placeholder-img-lg {
-                font-size: 3.5rem;
-            }
-        }
-    </style>
-
+    <link href="{% static './table/custom.css' %}" rel="stylesheet">
+    <link href="{% static './assets/dist/css/bootstrap.min.css' %}" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="{% static 'dashboard/dashboard.css' %}" rel="stylesheet">
+    <link href="{% static './dashboard/dashboard.css' %}" rel="stylesheet">
+    <link href="{% static './table/fontawasome.css' %}" rel="stylesheet">
+    <script src="https://unpkg.com/feather-icons"></script>
 </head>
 <body>
 
@@ -58,7 +38,7 @@
             <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">
+                        <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}">
                             <span data-feather="home"></span>
                             Dashboard
                         </a>
@@ -70,19 +50,19 @@
                         </a>
                     </h6>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{% url 'create-employee' %}">
                             <span data-feather="plus-circle"></span>
                             Add Employee
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{% url 'create-customer' %}">
                             <span data-feather="plus-circle"></span>
                             Add Customer
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{% url 'create-medicine' %}">
                             <span data-feather="plus-circle"></span>
                             Add Medicine
                         </a>
@@ -106,7 +86,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{% url 'sales-list' %}">
                             <span data-feather="file-text"></span>
                             Medicine detail activity
                         </a>
@@ -124,15 +104,13 @@
     </div>
 </div>
 
-
+<script src="{% static './table/jquery.min.js' %}"></script>
+<script src="{% static './dashboard/feather.js' %}"></script>
+<script src="{% static './dashboard/chart.min.js' %}"></script>
 <script src="{% static 'assets/dist/js/bootstrap.bundle.min.js' %}"></script>
-
-<script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"
-        integrity="sha384-uO3SXW5IuS1ZpFPKugNNWqTZRRglnUJK6UAZ/gxOX80nxEkN9NcGZTftn6RzhGWE"
-        crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"
-        integrity="sha384-zNy6FEbO50N+Cg5wap8IKA4M/ZnLJgzc6w2NqACZaK0u0FXfOWRRJOnQtpZun8ha"
-        crossorigin="anonymous"></script>
 {% include 'chart.html' %}
+<script>
+    feather.replace()
+</script>
 </body>
 </html>

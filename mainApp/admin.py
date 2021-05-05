@@ -4,13 +4,13 @@ from .models import *
 
 class SalesManagementAdmin(admin.ModelAdmin):
     list_display = (
-        'medicine_name', 'number_of_medicine', 'sold_number_of_medicine', 'original_price', 'selling_price',
+        'id', 'medicine_name', 'number_of_medicine', 'sold_number_of_medicine', 'original_price', 'selling_price',
         'created_at')
     readonly_fields = ['sold_number_of_medicine']
 
 
 class CustomerAdmin(admin.ModelAdmin):
-    list_display = ['customer_name', 'address', 'phone_number', 'medicine_price', 'payment', 'created_at']
+    list_display = ['id', 'customer_name', 'address', 'phone_number', 'medicine_price', 'payment', 'created_at']
 
 
 class EmployeeAdmin(admin.ModelAdmin):

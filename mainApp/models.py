@@ -39,27 +39,25 @@ class SalesManagement(models.Model):
     number_of_medicine = models.IntegerField(default=0)
     original_price = models.FloatField()
     selling_price = models.FloatField()
-    sold_number_of_medicine = models.IntegerField(default=0)
-    sold_at_a_time = models.IntegerField(default=0)
+    sold_number_of_medicine = models.IntegerField(default=0, blank=True, null=True)
+    sold_at_a_time = models.IntegerField(default=0, blank=True, null=True)
     created_at = models.DateField(auto_now_add=True)
     updated_at = models.DateField(auto_now=True)
 
+    class Meta:
+        ordering = ('-created_at',)
+
     def __str__(self):
         return self.medicine_name
+
+    # def selling_profit(self):
+    #     return self.number_of_medicine * self.selling_price
 
     def sold_medicine_value(self):
         return self.sold_number_of_medicine * self.selling_price
 
     def expense(self):
         return self.original_price * self.number_of_medicine
-
-    def profit(self):
-        if self.sold_medicine_value() > self.expense():
-            return self.sold_medicine_value() - self.expense()
-
-    def loss(self):
-        if self.sold_medicine_value() < self.expense():
-            return self.expense() - self.sold_medicine_value()
 
     def save(self, *args, **kwargs):
         if self.sold_at_a_time <= self.number_of_medicine:
