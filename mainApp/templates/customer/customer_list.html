@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{#{% load static %}#}
+
+{% block content %}
+
+    <h6 class="text-center mt-2">Customer List</h6>
+    {% if messages %}
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% else %}
+                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <div class="col-lg-6 col-md-6 col-sm-12 text-center mb-4 align-items-center">
+        <form class="row mb-4" method="GET">
+            {% csrf_token %}
+            <div class="col-md-4">
+                <input type="text" name="q" class="form-control" placeholder="Name"
+                       aria-label="First name">
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="form-control btn btn-primary" VALUE="Search"/>
+            </div>
+        </form>
+    </div>
+    <table id="example" class="table table-bordered" style="width:100%">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Customer name</th>
+            <th>Address</th>
+            <th>Phone Number</th>
+            <th>Medicine Price</th>
+            <th>Payment</th>
+            <th>Customer Due</th>
+            <th>Date</th>
+            <th>Operation</th>
+        </tr>
+        </thead>
+        <tbody id="tbody">
+        {% for customer in customers %}
+            {% if  customer.customer_name %}
+                <tr>
+                    <td>#{{ forloop.counter }} </td>
+                    <td>{{ customer.customer_name }}</td>
+                    <td>{{ customer.address }}</td>
+                    <td>{{ customer.phone_number }}</td>
+                    <td>{{ customer.medicine_price }}</td>
+                    <td>{{ customer.payment }}</td>
+                    <td>{{ customer.customer_due }}</td>
+                    <td>{{ customer.created_at }}</td>
+                    <td style="text-align: center">
+                        <a href="{% url 'delete-customer' customer.id %}">
+                            <span class="alert-danger" data-feather="trash"></span>
+                        </a>
+                        <a style="margin-left: 10px" href="{% url 'update-customer' customer.id %}"
+                        >
+                            <span id="modal-form" class="alert-info"
+                                  data-feather="edit"></span>
+                        </a>
+                    </td>
+                </tr>
+            {% endif %}
+        {% endfor %}
+        </tbody>
+        <tfoot>
+        </tfoot>
+    </table>
+    <nav aria-label="Page navigation example">
+        {% if customers.has_other_pages %}
+            <ul class="pagination">
+                {% if customers.has_previous %}
+                    <li class="page-item"><a class="page-link"
+                                             href="?page={{ customers.previous_page_number }}">Previous</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                {% endif %}
+                {% for i in customers.paginator.page_range %}
+                    {% if employees.number == i %}
+                        <li class="page-item disabled"><a class="page-link" href="#">{{ i }}</a></li>
+                    {% else %}
+                        <li class="page-item"><a href="?page={{ i }}">{{ i }}</a></li>
+                    {% endif %}
+                {% endfor %}
+                {% if customers.has_next %}
+                    <li class="page-item"><a class="page-link" href="?page={{ customers.next_page_number }}">Next</a>
+                    </li>
+                {% else %}
+                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                {% endif %}
+
+            </ul>
+        {% endif %}
+    </nav>
+{% endblock content %}

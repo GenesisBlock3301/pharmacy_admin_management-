@@ -1,0 +1,69 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <hr class="my-4">
+    <div class="row g-5 align-items-center justify-content-center">
+        <div class="col-md-6 col-lg-8 col-sm-12 text-center">
+            <h4 class="mb-3">Update Customer</h4>
+            {% if messages %}
+                {% for message in messages %}
+                    {% if message.tags == 'error' %}
+                        <div class="alert alert-danger">{{ message }}</div>
+                    {% else %}
+                        <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                    {% endif %}
+                {% endfor %}
+            {% endif %}
+            <form class="needs-validation" method="post">
+                {% csrf_token %}
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <label for="firstName" class="form-label">Customer Name</label>
+                        <input type="text" class="form-control" value="{{ customer.customer_name }}" id="firstName"
+                               name="name" placeholder="Employee Name"
+                               required>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="address" class="form-label">Address</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" value="{{ customer.address }}" name="address"
+                                   id="address" placeholder="Address"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Phone Number</label>
+                        <input type="text" required class="form-control" value="{{ customer.phone_number }}"
+                               name="phonenumber" id="phonenumber"
+                               placeholder="Phone Number">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="salary" class="form-label">Medicine Price</label>
+                        <input type="number" name="mprice" value="{{ customer.medicine_price }}" required
+                               class="form-control" id="salary"
+                               placeholder="Salary">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="salary" class="form-label">Payment </label>
+                        <input type="number" name="payment" disabled value="{{ customer.payment}}" required
+                               class="form-control" id="salary"
+                               placeholder="Salary">
+                    </div>
+
+
+                    <div class="col-md-6">
+                        <label for="salary" class="form-label">Payment at a time</label>
+                        <input type="number" name="apayment" value="{{ customer.payment_at_a_time }}" required
+                               class="form-control" id="salary"
+                               placeholder="Salary">
+                    </div>
+                </div>
+                <hr class="my-4">
+                <button class="w-100 btn btn-primary btn-sm" type="submit">Update Customer</button>
+            </form>
+        </div>
+    </div>
+    <hr class="my-4">
+{% endblock %}

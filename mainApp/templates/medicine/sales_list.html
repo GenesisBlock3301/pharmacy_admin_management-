@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load static %}
+{#{% load static %}#}
 
 {% block content %}
 
@@ -14,12 +14,23 @@
         {% endfor %}
     {% endif %}
     <div class="col-lg-6 col-md-6 col-sm-12 text-center mb-4 align-items-center">
-        <input type="text" placeholder="Search" class="form-control" style="width: 50%"/>
+        <form class="row mb-4" method="GET">
+            {% csrf_token %}
+            <div class="col-md-6">
+                <input type="text" name="q" class="form-control" placeholder="Name or date(YYYY/MM/DD)"
+                       aria-label="First name">
+            </div>
+            <div class="col-md-2">
+                <input type="submit" class="btn btn-primary" VALUE="Search"/>
+            </div>
+        </form>
     </div>
     <table id="example" class="table table-bordered" style="width:100%">
         <thead>
         <tr>
+            <th>No.</th>
             <th>Medicine name</th>
+            <th>Description</th>
             <th>Location</th>
             <th>Stock Medicine</th>
             <th>Sell Medicine</th>
@@ -31,46 +42,66 @@
             <th>Operation</th>
         </tr>
         </thead>
-        <tbody>
-        {% for sale in sales %}
+        <tbody id="tbody">
+        {% for medicine in medicines %}
             <tr>
-                <td>{{ sale.medicine_name }}</td>
-                <td>{{ sale.location }}</td>
-                <td>{{ sale.number_of_medicine }}</td>
-                <td>{{ sale.sold_number_of_medicine }}</td>
-                <td>{{ sale.original_price }}</td>
-                <td>{{ sale.selling_price }}</td>
-                <td>{{ sale.expense }}</td>
-                <td>{{ sale.sold_medicine_value }}</td>
-                <td>{{ sale.created_at }}</td>
+                <td>#{{ forloop.counter }}</td>
+                <td>{{ medicine.medicine_name }}</td>
+                <td>{{ medicine.description }}</td>
+                <td>{{ medicine.location }}</td>
+                {% if medicine.number_of_medicine < 20 %}
+                    <td style="background-color: red;color: white;font-weight: 600">{{ medicine.number_of_medicine }}</td>
+                {% else %}
+                    <td>{{ medicine.number_of_medicine }}</td>
+                {% endif %}
+                <td>{{ medicine.sold_number_of_medicine }}</td>
+                <td>{{ medicine.original_price }}৳</td>
+                <td>{{ medicine.selling_price }}৳</td>
+                <td>{{ medicine.expense }}&#2547;</td>
+                <td>{{ medicine.sold_medicine_value }}৳</td>
+                <td>{{ medicine.updated_at }}</td>
                 <td style="text-align: center">
-                    <a href="#">
+                    <a href="{% url 'delete-medicine' medicine.id %}">
                         <span class="alert-danger" data-feather="trash"></span>
                     </a>
-                    <a style="margin-left: 10px" href="#">
-                        <span class="alert-info" data-feather="edit"></span>
+                    <a style="margin-left: 10px" href="{% url 'update-medicine' medicine.id %}"
+                    >
+                            <span id="modal-form" class="alert-info"
+                                  data-feather="edit"></span>
                     </a>
                 </td>
             </tr>
+
         {% endfor %}
         </tbody>
         <tfoot>
         <tr>
-            <th>-</th>
-            <th colspan="2">Total Medicine:</th>
-            <th>Sell Medicine</th>
-            <th colspan="2"></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th>T. Expense</th>
             <th>T. Selling</th>
-            <th colspan="2"></th>
+            <th></th>
+            <th></th>
         </tr>
         <tr>
-            <th colspan="3"></th>
             <th></th>
-            <th colspan="2"></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
             <th>{{ total_expense }}</th>
             <th>{{ total_selling }}</th>
-            <th colspan="2"></th>
+            <th></th>
+            <th></th>
         </tr>
         </tfoot>
     </table>
@@ -101,5 +132,4 @@
             </ul>
         {% endif %}
     </nav>
-
 {% endblock content %}

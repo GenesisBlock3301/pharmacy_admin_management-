@@ -4,13 +4,13 @@
     <hr class="my-4">
     <div class="row g-5 align-items-center justify-content-center">
         <div class="col-md-6 col-lg-8 col-sm-12 text-center">
-            <h4 class="mb-3">Sales Management</h4>
-            <form class="needs-validation" method="post" action="{% url 'create-medicine' %}">
+            <h4 class="mb-3">Update sell</h4>
+            <form class="needs-validation" method="post">
                 {% csrf_token %}
                 <div class="row g-3">
                     <div class="col-md-6 col-lg-6 col-sm-12">
                         <label for="Name" class="form-label">Medicine Name</label>
-                        <input type="text" class="form-control" id="name" name="Mname" placeholder="Medicine Name"
+                        <input type="text" disabled class="form-control" id="name" name="Mname" value="{{ sale.medicine_name }}" placeholder="Medicine Name"
                                required>
                     </div>
 
@@ -18,31 +18,36 @@
                         <label for="address" class="form-label">Medicine Location</label>
                         <div class="input-group has-validation">
                             <input type="text" class="form-control" name="location" id="location"
-                                   placeholder="Medicine location"
+                                   placeholder="Medicine location" value="{{ sale.location }}"
                                    required>
                         </div>
                     </div>
 
                     <div class="col-md-6 col-lg-6 col-sm-12">
                         <label for="salary" class="form-label">Original Price</label>
-                        <input type="number" name="Oprice" required class="form-control" id="salary"
+                        <input type="number" name="Oprice" required class="form-control" id="Oprice"
+                               value="{{ sale.original_price }}"
                                placeholder="Original price">
                     </div>
 
                     <div class="col-md-6">
                         <label for="payment" class="form-label">Selling Price</label>
                         <input type="number" name="Sprice" required class="form-control" id="payment"
-                               placeholder="Selling price">
+                               value="{{ sale.selling_price }}" placeholder="Selling price">
                     </div>
-                    <div class="col-md-12 col-lg-12 col-sm-12">
-                        <label for="salary" class="form-label">Number of Medicine</label>
+                    <div class="col-md-6 col-lg-6 col-sm-12">
+                        <label for="salary" class="form-label">Stock Medicine</label>
                         <input type="number" name="Nmedicine" required class="form-control" id="salary"
-                               placeholder="Number of medicine">
+                               value="{{ sale.number_of_medicine }}" placeholder="Number of medicine">
                     </div>
-
+                    <div class="col-md-6 col-lg-6 col-sm-12">
+                        <label for="salary" class="form-label">Sold at a time</label>
+                        <input type="number" name="smedicine" value="{{ 0 }}" class="form-control" id="salary"
+                               placeholder="Sold at a time">
+                    </div>
                 </div>
                 <hr class="my-4">
-                <button class="w-100 btn btn-primary btn-sm" type="submit">Add Sales</button>
+                <button class="w-100 btn btn-primary btn-sm" type="submit">Update Medicine</button>
             </form>
         </div>
     </div>

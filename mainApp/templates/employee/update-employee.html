@@ -14,44 +14,48 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
-            <form class="needs-validation" method="post" action="{% url 'create-employee' %}">
+            <form class="needs-validation" method="post">
                 {% csrf_token %}
                 <div class="row g-3">
-                    <div class="col-sm-12">
+                    <div class="col-md-6">
                         <label for="firstName" class="form-label">Employee Name</label>
-                        <input type="text" class="form-control" id="firstName" name="name" placeholder="Employee Name"
+                        <input type="text" class="form-control" value="{{ employee.employee_name }}" id="firstName"
+                               name="name" placeholder="Employee Name"
                                required>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-md-6">
                         <label for="address" class="form-label">Address</label>
                         <div class="input-group has-validation">
-                            <input type="text" class="form-control" name="address" id="address" placeholder="Address"
+                            <input type="text" class="form-control" value="{{ employee.address }}" name="address"
+                                   id="address" placeholder="Address"
                                    required>
                         </div>
                     </div>
 
                     <div class="col-12">
                         <label for="email" class="form-label">Phone Number</label>
-                        <input type="text" required class="form-control" name="phonenumber" id="phonenumber"
+                        <input type="text" required class="form-control" value="{{ employee.phone_number }}"
+                               name="phonenumber" id="phonenumber"
                                placeholder="Phone Number">
                     </div>
 
                     <div class="col-md-6">
                         <label for="salary" class="form-label">Salary</label>
-                        <input type="number" name="salary" required class="form-control" id="salary"
+                        <input type="number" name="salary" value="{{ employee.salary_amount }}" required
+                               class="form-control" id="salary"
                                placeholder="Salary">
                     </div>
 
-                    <div class="form-group col-md-6">
-                        <label class="form-label" for="exampleFormControlSelect1">Payment Status</label>
-                        <select name="payment" class="form-control" id="exampleFormControlSelect1">
-                            <option value="Yes">Yes</option>
-                            <option value="No">No</option>
-                        </select>
+                    <div class="col-md-6">
+                        <label for="payment" class="form-label">Payment</label>
+                        <input type="number" name="payment" value="{{ employee.payment }}" required class="form-control"
+                               id="payment"
+                               placeholder="Payment">
                     </div>
-                    <hr class="my-4">
-                    <button class="w-100 btn btn-primary btn-sm" type="submit">Add</button>
+                </div>
+                <hr class="my-4">
+                <button class="w-100 btn btn-primary btn-sm" type="submit">Update Employee</button>
             </form>
         </div>
     </div>

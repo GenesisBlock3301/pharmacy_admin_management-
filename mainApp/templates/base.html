@@ -14,7 +14,11 @@
     <!-- Custom styles for this template -->
     <link href="{% static './dashboard/dashboard.css' %}" rel="stylesheet">
     <link href="{% static './table/fontawasome.css' %}" rel="stylesheet">
-    <script src="https://unpkg.com/feather-icons"></script>
+{#    <script src="https://unpkg.com/feather-icons"></script>#}
+{#    <script src="https://code.jquery.com/jquery-3.3.1.js"#}
+{#            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="#}
+{#            crossorigin="anonymous"></script>#}
+
 </head>
 <body>
 
@@ -74,21 +78,27 @@
                 </h6>
                 <ul class="nav flex-column mb-2">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{% url 'employee-list' %}">
                             <span data-feather="users"></span>
-                            View employee
+                            View employees
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">
+                        <a class="nav-link" href="{% url 'customer-list' %}">
                             <span data-feather="users"></span>
                             View customers
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="{% url 'sales-list' %}">
+                        <a class="nav-link" href="{% url 'medicine-list' %}">
                             <span data-feather="file-text"></span>
                             Medicine detail activity
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'histories' %}">
+                            <span data-feather="activity"></span>
+                            Medicine history
                         </a>
                     </li>
 
@@ -112,5 +122,6 @@
 <script>
     feather.replace()
 </script>
+
 </body>
 </html>

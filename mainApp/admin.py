@@ -24,6 +24,16 @@ class EmployeeAdmin(admin.ModelAdmin):
     )
 
 
+class MedicineHistoryAdmin(admin.ModelAdmin):
+    list_display = ['medicine_name', 'quantity', 'selling', 'created_at']
+
+
+class CustomerHistoryAdmin(admin.ModelAdmin):
+    list_display = [ 'name', 'payment', 'created_at']
+
+
 admin.site.register(Employee, EmployeeAdmin)
 admin.site.register(Customer, CustomerAdmin)
 admin.site.register(SalesManagement, SalesManagementAdmin)
+admin.site.register(MedicineHistory, MedicineHistoryAdmin)
+admin.site.register(CustomerHistory, CustomerHistoryAdmin)
