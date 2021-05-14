@@ -229,6 +229,42 @@ def delete_customer(request, pk):
     return redirect("customer-list")
 
 
+def delete_customer_history(request, pk):
+    customer = get_object_or_404(Customer, pk=pk)
+    customer.delete()
+    messages.success(request, 'Successfully deleted')
+    return redirect("customer-list")
+
+
+class CustomerHistoryView(View):
+    def get(self, request):
+        history = CustomerHistory.objects.all()
+        # use django model Q for searching
+        search = request.GET.get('q')
+        # if search anything this time only work this block
+        if search:
+            history = MedicineHistory.objects.filter(
+                Q(created_at__icontains=search) | Q(name__customer_name__iscontains=search)
+            ).distinct()
+        # total_selling = get_selling_sum(sales)
+        # total_expense = get_expense_sum(sales)
+        page = request.GET.get('page', 1)
+        # call django built in pagination class
+        paginator = Paginator(history, per_page=5)
+        try:
+            all_history = paginator.page(page)
+        except PageNotAnInteger as e:
+            all_history = paginator.page(1)
+        except EmptyPage:
+            all_history = Paginator.page(paginator.num_pages)
+        print("Alll histories", all_history)
+        return render(request, 'customer/customer_history.html', {
+            'histories': all_history,
+            # 'total_selling': total_selling,
+            # 'total_expense': total_expense,
+        })
+
+
 class CreateSalesManagement(View):
     def get(self, request):
         return render(request, 'medicine/CreateSalesManagement.html')
@@ -314,7 +350,7 @@ class UpdateMedicine(View):
             history.save()
             medicine.sold_number_of_medicine = 0
             medicine.save()
-            return redirect('histories')
+            return redirect('medicine-histories')
         messages.success(request, "Successfully updated")
         return redirect("medicine-list")
 
@@ -349,18 +385,18 @@ class MedicineHistoryView(View):
         except EmptyPage:
             all_history = Paginator.page(paginator.num_pages)
         print("Alll histories", all_history)
-        return render(request, 'medicine/history.html', {
+        return render(request, 'medicine/medicine_history.html', {
             'histories': all_history,
             # 'total_selling': total_selling,
             # 'total_expense': total_expense,
         })
 
 
-def delete_history(request, pk):
+def delete_medicine_history(request, pk):
     history = get_object_or_404(MedicineHistory, pk=pk)
     history.delete()
     messages.success(request, 'Successfully Deleted.')
-    return redirect('histories')
+    return redirect('medicine-histories')
 
 
 # helper function

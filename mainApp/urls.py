@@ -15,12 +15,13 @@ urlpatterns = [
     path('customer-list/', views.CustomerList.as_view(), name='customer-list'),
     path('update-customer/<int:pk>/', views.UpdateCustomer.as_view(), name='update-customer'),
     path('delete-customer/<int:pk>/', views.delete_customer, name='delete-customer'),
+    path('customer-histories/', views.CustomerHistoryView.as_view(), name='customer-histories'),
+    path('customer-histories-delete/<int:pk>/', views.delete_customer_history, name='customer-histories-delete'),
 
     path('create-medicine/', views.CreateSalesManagement.as_view(), name='create-medicine'),
     path('medicine-list/', views.SalesManagementList.as_view(), name='medicine-list'),
     path('update-medicine/<int:pk>/', views.UpdateMedicine.as_view(), name='update-medicine'),
     path('delete-medicine/<int:pk>/', views.delete_medicine, name='delete-medicine'),
-
-    path('histories/', views.MedicineHistoryView.as_view(), name='histories'),
-    path('delete-history/<pk>/', views.delete_history, name='delete-history')
+    path('medicine-histories/', views.MedicineHistoryView.as_view(), name='medicine-histories'),
+    path('medicine-delete-history/<pk>/', views.delete_medicine_history, name='medicine-delete-history')
 ]
