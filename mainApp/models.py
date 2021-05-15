@@ -74,8 +74,8 @@ class SalesManagement(models.Model):
     def __str__(self):
         return str(self.medicine_name)
 
-    # def selling_profit(self):
-    #     return self.number_of_medicine * self.selling_price
+    def selling_profit(self):
+        return self.sold_number_of_medicine * self.selling_price
 
     def sold_medicine_value(self):
         return self.sold_number_of_medicine * self.selling_price

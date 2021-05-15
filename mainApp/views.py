@@ -345,7 +345,7 @@ class UpdateMedicine(View):
         medicine.sold_at_a_time = int(sold_at_a_time)
         medicine.number_of_medicine = int(number_of_medicine)
         medicine.save()
-        if medicine.number_of_medicine < 5:
+        if medicine.number_of_medicine <= 0:
             history = MedicineHistory.objects.create(
                 medicine_name=medicine,
                 quantity=medicine.sold_number_of_medicine,
