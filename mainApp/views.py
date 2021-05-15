@@ -19,7 +19,7 @@ class Dashboard(LoginRequiredMixin, View):
         search = request.GET.get('q')
         # print("search", search.split("-"))
         year, week, day_of_week = my_date.isocalendar()
-        first_day, last_day = find_start_ending_day_of_week(year, week)
+        first_day, last_day = find_start_ending_day_of_week(year, week-1)
         if search:
             year, week = str(search).split("-")
             print("Split year week", year, week)
@@ -37,8 +37,8 @@ class Dashboard(LoginRequiredMixin, View):
         print(dic)
         for i in dic:
             labels.append(i)
-            data.append(dic[i])
-
+            # data.append(dic[i])
+        data = [1000, 3000, 500, 7700, 6000, 3500, 898]
         # print(labels)
 
         return render(request, 'dashboard/index.html', {
@@ -234,13 +234,6 @@ def delete_customer(request, pk):
     return redirect("customer-list")
 
 
-def delete_customer_history(request, pk):
-    customer = get_object_or_404(Customer, pk=pk)
-    customer.delete()
-    messages.success(request, 'Successfully deleted')
-    return redirect("customer-list")
-
-
 class CustomerHistoryView(View):
     def get(self, request):
         history = CustomerHistory.objects.all()
@@ -268,6 +261,13 @@ class CustomerHistoryView(View):
             # 'total_selling': total_selling,
             # 'total_expense': total_expense,
         })
+
+
+def delete_customer_history(request, pk):
+    customer = get_object_or_404(CustomerHistory, pk=pk)
+    customer.delete()
+    messages.success(request, 'Successfully deleted')
+    return redirect("customer-list")
 
 
 class CreateSalesManagement(View):
@@ -304,13 +304,13 @@ class SalesManagementList(View):
         # if search anything this time only work this block
         if search:
             sales = SalesManagement.objects.filter(
-                Q(medicine_name__icontains=search) | Q(created_at__exact=search)
+                Q(medicine_name__icontains=search) | Q(created_at__iexact=search)
             ).distinct()
         total_selling = get_selling_sum(sales)
         total_expense = get_expense_sum(sales)
         page = request.GET.get('page', 1)
         # call django built in pagination class
-        paginator = Paginator(sales, per_page=5)
+        paginator = Paginator(sales, per_page=2)
         try:
             all_sales = paginator.page(page)
         except PageNotAnInteger as e:
