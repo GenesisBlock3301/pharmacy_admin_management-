@@ -6,9 +6,14 @@ from .models import Employee, Customer, SalesManagement, MedicineHistory, Custom
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-class Dashboard(View):
+class Dashboard(LoginRequiredMixin, View):
+    # @method_decorator(login_required, name='user-login')
+    login_url = '/user-login/'
+    redirect_field_name = 'user-login'
+
     def get(self, request):
         my_date = datetime.date.today()
         search = request.GET.get('q')

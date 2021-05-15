@@ -14,10 +14,10 @@
     <!-- Custom styles for this template -->
     <link href="{% static './dashboard/dashboard.css' %}" rel="stylesheet">
     <link href="{% static './table/fontawasome.css' %}" rel="stylesheet">
-{#    <script src="https://unpkg.com/feather-icons"></script>#}
-{#    <script src="https://code.jquery.com/jquery-3.3.1.js"#}
-{#            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="#}
-{#            crossorigin="anonymous"></script>#}
+    {#    <script src="https://unpkg.com/feather-icons"></script>#}
+    {#    <script src="https://code.jquery.com/jquery-3.3.1.js"#}
+    {#            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="#}
+    {#            crossorigin="anonymous"></script>#}
 
 </head>
 <body>
@@ -29,10 +29,15 @@
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-            <a class="nav-link" href="#">Sign out</a>
-        </li>
+    <ul class="navbar-nav px-3 flex-row">
+        {% if user.is_authenticated %}
+            <li class="nav-item text-nowrap">
+                <a class="nav-link disabled" style="color: white" href="#">{{ user.username }}</a>
+            </li>
+            <li class="nav-item text-nowrap" style="margin-left: 10px">
+                <a class="nav-link" href="{% url 'user-logout' %}">Logout</a>
+            </li>
+        {% endif %}
     </ul>
 </header>
 
