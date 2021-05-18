@@ -1,26 +1,26 @@
 from django.urls import path
-from . import views
-from django.contrib.auth.decorators import login_required
-
+from mainApp.views import employee_views,customer_view,medicine_view,stockless_view
 urlpatterns = [
-    path('', views.Dashboard.as_view(), name='dashboard'),
+    path('', medicine_view.Dashboard.as_view(), name='dashboard'),
 
-    path('create-employee/', views.CreateEmployee.as_view(), name='create-employee'),
-    path('employee-list/', views.EmployeeList.as_view(), name='employee-list'),
-    path('update-employee/<int:pk>/', views.UpdateEmployee.as_view(), name='update-employee'),
-    path('delete-employee/<int:pk>/', views.delete_employee, name='delete-employee'),
+    path('create-employee/', employee_views.CreateEmployee.as_view(), name='create-employee'),
+    path('employee-list/', employee_views.EmployeeList.as_view(), name='employee-list'),
+    path('update-employee/<int:pk>/', employee_views.UpdateEmployee.as_view(), name='update-employee'),
+    path('delete-employee/<int:pk>/', employee_views.delete_employee, name='delete-employee'),
 
-    path('create-customer/', views.CreateCustomer.as_view(), name='create-customer'),
-    path('customer-list/', views.CustomerList.as_view(), name='customer-list'),
-    path('update-customer/<int:pk>/', views.UpdateCustomer.as_view(), name='update-customer'),
-    path('delete-customer/<int:pk>/', views.delete_customer, name='delete-customer'),
-    path('customer-histories/', views.CustomerHistoryView.as_view(), name='customer-histories'),
-    path('customer-histories-delete/<int:pk>/', views.delete_customer_history, name='customer-histories-delete'),
+    path('create-customer/', customer_view.CreateCustomer.as_view(), name='create-customer'),
+    path('customer-list/', customer_view.CustomerList.as_view(), name='customer-list'),
+    path('update-customer/<int:pk>/', customer_view.UpdateCustomer.as_view(), name='update-customer'),
+    path('delete-customer/<int:pk>/', customer_view.delete_customer, name='delete-customer'),
+    path('customer-histories/', customer_view.CustomerHistoryView.as_view(), name='customer-histories'),
+    path('customer-histories-delete/<int:pk>/', customer_view.delete_customer_history, name='customer-histories-delete'),
 
-    path('create-medicine/', views.CreateSalesManagement.as_view(), name='create-medicine'),
-    path('medicine-list/', views.SalesManagementList.as_view(), name='medicine-list'),
-    path('update-medicine/<int:pk>/', views.UpdateMedicine.as_view(), name='update-medicine'),
-    path('delete-medicine/<int:pk>/', views.delete_medicine, name='delete-medicine'),
-    path('medicine-histories/', views.MedicineHistoryView.as_view(), name='medicine-histories'),
-    path('medicine-delete-history/<pk>/', views.delete_medicine_history, name='medicine-delete-history')
+    path('create-medicine/', medicine_view.CreateSalesManagement.as_view(), name='create-medicine'),
+    path('medicine-list/', medicine_view.SalesManagementList.as_view(), name='medicine-list'),
+    path('update-medicine/<int:pk>/', medicine_view.UpdateMedicine.as_view(), name='update-medicine'),
+    path('delete-medicine/<int:pk>/', medicine_view.delete_medicine, name='delete-medicine'),
+    path('medicine-histories/', medicine_view.MedicineHistoryView.as_view(), name='medicine-histories'),
+    path('medicine-delete-history/<pk>/', medicine_view.delete_medicine_history, name='medicine-delete-history'),
+
+    path('create-stock-less/',stockless_view.CreateStockLessView.as_view(),name="create-stock-less")
 ]
