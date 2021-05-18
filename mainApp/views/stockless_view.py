@@ -21,20 +21,20 @@ class CreateStockLessView(View):
         original_price = float(request.POST.get('Oprice'))
         selling_price = float(request.POST.get('Sprice'))
         quantity = int(request.POST.get('quantity', None))
-        try:
-            medicine = Medicine.objects.get(medicine_name=medicine_name)
-            if medicine:
-                return redirect('medicine-list')
-        except Medicine.DoesNotExist:
-            medicine = Medicine.objects.create(
-                medicine_name=medicine_name,
-                company_name=company_name,
-                description=description,
-                original_price=original_price,
-                selling_price=selling_price,
-                number_of_medicine=quantity
-            )
-            medicine.save()
+        # try:
+        #     medicine = Medicine.objects.get(medicine_name=medicine_name)
+        #     if medicine:
+        #         return redirect('medicine-list')
+        # except Medicine.DoesNotExist:
+        #     medicine = Medicine.objects.create(
+        #         medicine_name=medicine_name,
+        #         company_name=company_name,
+        #         description=description,
+        #         original_price=original_price,
+        #         selling_price=selling_price,
+        #         number_of_medicine=quantity
+        #     )
+        #     medicine.save()
         try:
             customer = Customer.objects.get(customer_name=customer_name)
             print("get customer")
@@ -43,13 +43,17 @@ class CreateStockLessView(View):
             print("Customer work")
             # customer.save()
         stock_less = StockLessMedicine.objects.create(
-            medicine=medicine,
             customer=customer.customer_name,
+            medicine_name=medicine_name,
+            company_name=company_name,
+            description=description,
+            original_price=original_price,
+            selling_price=selling_price,
             quantity=quantity,
             # is_served=True if is_served == 'on' else False
         )
         stock_less.save()
-        customer_new_due = stock_less.quantity * stock_less.medicine.selling_price
+        customer_new_due = stock_less.quantity * stock_less.selling_price
         # print(customer_new_due, customer.customer_due())
         customer.medicine_price = customer_new_due + customer.customer_due()
         customer.save()

@@ -123,7 +123,7 @@ class UpdateMedicine(View):
         selling_price = request.POST.get('Sprice')
         sold_at_a_time = request.POST.get('smedicine')
         number_of_medicine = request.POST.get('Nmedicine')
-        print(int(sold_at_a_time))
+        # print(int(sold_at_a_time))
         medicine.location = location
         medicine.original_price = float(original_price)
         medicine.selling_price = float(selling_price)
