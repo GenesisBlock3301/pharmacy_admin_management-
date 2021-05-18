@@ -6,7 +6,7 @@ from mainApp.models.medicine import Medicine
 
 class StockLessMedicine(TimeStamp):
     medicine = models.ForeignKey(Medicine, on_delete=models.CASCADE, related_name='medicines')
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE, related_name="customers")
+    customer = models.CharField(max_length=255, blank=True, null=True)
     quantity = models.IntegerField(default=0)
     is_served = models.BooleanField(default=False)
 

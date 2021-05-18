@@ -2,10 +2,9 @@ from django.db import models
 from mainApp.models.common import Common, TimeStamp
 from mainApp.models.customer import Customer
 
-# class MediCommon(models.Model):
-#
 
 class Medicine(TimeStamp):
+    customer_name = models.CharField(max_length=255,null=True,blank=True)
     medicine_name = models.CharField(max_length=255, unique=True, null=True, blank=True)
     company_name = models.CharField(max_length=255, null=True, blank=True)
     description = models.TextField(blank=True, null=True, default='')
@@ -37,7 +36,6 @@ class Medicine(TimeStamp):
             self.sold_number_of_medicine += self.sold_at_a_time
             self.sold_at_a_time = 0
         return super().save(*args, **kwargs)
-
 
 
 class MedicineHistory(TimeStamp):

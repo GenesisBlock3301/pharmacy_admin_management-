@@ -21,10 +21,12 @@ class CreateStockLessView(View):
         original_price = float(request.POST.get('Oprice'))
         selling_price = float(request.POST.get('Sprice'))
         quantity = int(request.POST.get('quantity', None))
-        print(medicine_name, customer_name, quantity)
+        # print(medicine_name, customer_name, quantity)
         try:
             medicine = Medicine.objects.get(medicine_name=medicine_name)
             if medicine:
+                # medicine.number_of_medicine -= quantity
+                # medicine.sold_number_of_medicine += quantity
                 return redirect('medicine-list')
         except Medicine.DoesNotExist:
             medicine = Medicine.objects.create(
@@ -45,14 +47,14 @@ class CreateStockLessView(View):
             # customer.save()
         stock_less = StockLessMedicine.objects.create(
             medicine=medicine,
-            customer=customer,
+            customer=customer.customer_name,
             quantity=quantity,
             # is_served=True if is_served == 'on' else False
         )
         stock_less.save()
         customer_new_due = stock_less.quantity * stock_less.medicine.selling_price
-        print(customer_new_due, stock_less.customer.customer_due())
-        customer.medicine_price = customer_new_due + stock_less.customer.customer_due()
+        # print(customer_new_due, customer.customer_due())
+        customer.medicine_price = customer_new_due + customer.customer_due()
         customer.save()
 
         return redirect('customer-list')
