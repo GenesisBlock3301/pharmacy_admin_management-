@@ -21,12 +21,9 @@ class CreateStockLessView(View):
         original_price = float(request.POST.get('Oprice'))
         selling_price = float(request.POST.get('Sprice'))
         quantity = int(request.POST.get('quantity', None))
-        # print(medicine_name, customer_name, quantity)
         try:
             medicine = Medicine.objects.get(medicine_name=medicine_name)
             if medicine:
-                # medicine.number_of_medicine -= quantity
-                # medicine.sold_number_of_medicine += quantity
                 return redirect('medicine-list')
         except Medicine.DoesNotExist:
             medicine = Medicine.objects.create(

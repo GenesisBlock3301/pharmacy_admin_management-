@@ -3,6 +3,7 @@ import datetime
 import calendar
 from django.views import View
 from mainApp.models.medicine import Medicine, MedicineHistory
+from mainApp.models.customer import Customer
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
@@ -110,6 +111,13 @@ class UpdateMedicine(View):
     def post(self, request, pk):
         # get or error handle
         medicine = get_object_or_404(Medicine, pk=pk)
+        customer_name = request.POST.get('cname', None)
+        try:
+            customer = Customer.objects.get(customer_name=customer_name)
+        except Customer.DoesNotExist:
+            customer = Customer.objects.create(
+                customer_name=customer_name
+            )
         location = request.POST.get('location')
         original_price = request.POST.get('Oprice')
         selling_price = request.POST.get('Sprice')
@@ -122,6 +130,10 @@ class UpdateMedicine(View):
         medicine.sold_at_a_time = int(sold_at_a_time)
         medicine.number_of_medicine = int(number_of_medicine)
         medicine.save()
+        new_due = int(sold_at_a_time) * float(selling_price)
+        customer.medicine_price = new_due + customer.customer_due()
+        # customer.payment += int(sold_at_a_time) * float(selling_price)
+        customer.save()
         if medicine.number_of_medicine <= 0:
             history = MedicineHistory.objects.create(
                 medicine_name=medicine,

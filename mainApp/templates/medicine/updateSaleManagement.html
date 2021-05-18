@@ -13,7 +13,6 @@
                         <input type="text" disabled class="form-control" id="name" name="Mname" value="{{ sale.medicine_name }}" placeholder="Medicine Name"
                                required>
                     </div>
-
                     <div class="col-md-6 col-lg-6 col-sm-12">
                         <label for="address" class="form-label">Medicine Location</label>
                         <div class="input-group has-validation">
@@ -22,7 +21,14 @@
                                    required>
                         </div>
                     </div>
-
+                    <div class="col-md-12 col-lg-12 col-sm-12">
+                        <label for="address" class="form-label">Customer Name</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" name="cname" id="cname"
+                                   placeholder="Customer Name"
+                                   required>
+                        </div>
+                    </div>
                     <div class="col-md-6 col-lg-6 col-sm-12">
                         <label for="salary" class="form-label">Original Price</label>
                         <input type="number" name="Oprice" required class="form-control" id="Oprice"
