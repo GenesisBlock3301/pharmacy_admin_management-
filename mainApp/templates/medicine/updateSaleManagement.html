@@ -10,14 +10,14 @@
                 <div class="row g-3">
                     <div class="col-md-6 col-lg-6 col-sm-12">
                         <label for="Name" class="form-label">Medicine Name</label>
-                        <input type="text" disabled class="form-control" id="name" name="Mname" value="{{ sale.medicine_name }}" placeholder="Medicine Name"
+                        <input type="text" disabled class="form-control" id="name" name="Mname" value="{{ medicine.medicine_name }}" placeholder="Medicine Name"
                                required>
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12">
                         <label for="address" class="form-label">Medicine Location</label>
                         <div class="input-group has-validation">
                             <input type="text" class="form-control" name="location" id="location"
-                                   placeholder="Medicine location" value="{{ sale.location }}"
+                                   placeholder="Medicine location" value="{{ medicine.location }}"
                                    required>
                         </div>
                     </div>
@@ -29,22 +29,37 @@
                                    required>
                         </div>
                     </div>
+                    <div class="col-md-6">
+                        <label for="address" class="form-label">Address</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" name="address"
+                                   id="address" placeholder="Address"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <label for="email" class="form-label">Phone Number</label>
+                        <input type="text" required class="form-control"
+                               name="phonenumber" id="phonenumber"
+                               placeholder="Phone Number">
+                    </div>
                     <div class="col-md-6 col-lg-6 col-sm-12">
                         <label for="salary" class="form-label">Original Price</label>
                         <input type="number" name="Oprice" required class="form-control" id="Oprice"
-                               value="{{ sale.original_price }}"
+                               value="{{ medicine.original_price }}"
                                placeholder="Original price">
                     </div>
 
                     <div class="col-md-6">
                         <label for="payment" class="form-label">Selling Price</label>
                         <input type="number" name="Sprice" required class="form-control" id="payment"
-                               value="{{ sale.selling_price }}" placeholder="Selling price">
+                               value="{{ medicine.selling_price }}" placeholder="Selling price">
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12">
                         <label for="salary" class="form-label">Stock Medicine</label>
                         <input type="number" name="Nmedicine" required class="form-control" id="salary"
-                               value="{{ sale.number_of_medicine }}" placeholder="Number of medicine">
+                               value="{{ medicine.number_of_medicine }}" placeholder="Number of medicine">
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12">
                         <label for="salary" class="form-label">Sold at a time</label>

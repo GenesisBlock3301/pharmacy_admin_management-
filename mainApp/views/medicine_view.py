@@ -108,18 +108,23 @@ class SalesManagementList(View):
 
 class UpdateMedicine(View):
     def get(self, request, pk):
-        sale = get_object_or_404(Medicine, id=pk)
-        return render(request, 'medicine/updateSaleManagement.html', {'sale': sale})
+        medicine = get_object_or_404(Medicine, id=pk)
+        # customer = Customer.objects.get(customer_name=medicine.)
+        return render(request, 'medicine/updateSaleManagement.html', {'medicine': medicine})
 
     def post(self, request, pk):
         # get or error handle
         medicine = get_object_or_404(Medicine, pk=pk)
         customer_name = request.POST.get('cname', None)
+        address = request.POST.get('address')
+        phone_number = request.POST.get('phonenumber')
         try:
             customer = Customer.objects.get(customer_name=customer_name)
         except Customer.DoesNotExist:
             customer = Customer.objects.create(
-                customer_name=customer_name
+                customer_name=customer_name,
+                address=address,
+                phone_number=phone_number
             )
         location = request.POST.get('location')
         original_price = request.POST.get('Oprice')
@@ -127,6 +132,7 @@ class UpdateMedicine(View):
         sold_at_a_time = request.POST.get('smedicine')
         number_of_medicine = request.POST.get('Nmedicine')
         # print(int(sold_at_a_time))
+
         medicine.location = location
         medicine.original_price = float(original_price)
         medicine.selling_price = float(selling_price)
