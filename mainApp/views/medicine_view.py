@@ -131,7 +131,7 @@ class UpdateMedicine(View):
         medicine.number_of_medicine = int(number_of_medicine)
         medicine.save()
         new_due = int(sold_at_a_time) * float(selling_price)
-        customer.medicine_price = new_due + customer.customer_due()
+        customer.medicine_price += new_due
         # customer.payment += int(sold_at_a_time) * float(selling_price)
         customer.save()
         if medicine.number_of_medicine <= 0:

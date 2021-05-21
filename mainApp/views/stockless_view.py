@@ -10,36 +10,25 @@ from django.db.models import Q
 
 class CreateStockLessView(View):
     def get(self, request):
-        return render(request, 'stockless_medicine/create_stockless.html')
+        return render(request, 'stockless/create_stockless.html')
 
     def post(self, request):
         print("Working")
         medicine_name = request.POST.get('Mname', None)
         customer_name = request.POST.get('cname', None)
+        address = request.POST.get('address', None)
+        phone_number = request.POST.get('phonenumber', None)
         company_name = request.POST.get('Coname', None)
         description = request.POST.get('description', None)
         original_price = float(request.POST.get('Oprice'))
         selling_price = float(request.POST.get('Sprice'))
         quantity = int(request.POST.get('quantity', None))
-        # try:
-        #     medicine = Medicine.objects.get(medicine_name=medicine_name)
-        #     if medicine:
-        #         return redirect('medicine-list')
-        # except Medicine.DoesNotExist:
-        #     medicine = Medicine.objects.create(
-        #         medicine_name=medicine_name,
-        #         company_name=company_name,
-        #         description=description,
-        #         original_price=original_price,
-        #         selling_price=selling_price,
-        #         number_of_medicine=quantity
-        #     )
-        #     medicine.save()
+
         try:
             customer = Customer.objects.get(customer_name=customer_name)
             print("get customer")
         except Customer.DoesNotExist:
-            customer = Customer.objects.create(customer_name=customer_name)
+            customer = Customer.objects.create(customer_name=customer_name, address=address, phone_number=phone_number)
             print("Customer work")
             # customer.save()
         stock_less = StockLessMedicine.objects.create(
@@ -59,3 +48,30 @@ class CreateStockLessView(View):
         customer.save()
 
         return redirect('customer-list')
+
+
+class StockLessList(View):
+    def get(self, request):
+        stock_less = StockLessMedicine.objects.all()
+        # use django model Q for searching
+        search = request.GET.get('q')
+        # if search anything this time only work this block
+        if search:
+            stock_less = StockLessMedicine.objects.filter(
+                Q(customer__icontains=search)
+            ).distinct()
+        # total_selling = get_selling_sum(medicine)
+        # total_expense = get_expense_sum(medicine)
+        page = request.GET.get('page', 1)
+
+        # call django built in pagination class
+        paginator = Paginator(stock_less, per_page=10)
+        try:
+            stock_less = paginator.page(page)
+        except PageNotAnInteger as e:
+            stock_less = paginator.page(1)
+        except EmptyPage:
+            stock_less = Paginator.page(paginator.num_pages)
+        return render(request, 'stockless/stock_list.html', {
+            'stock_less': stock_less,
+        })

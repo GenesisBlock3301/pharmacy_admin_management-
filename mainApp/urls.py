@@ -22,5 +22,6 @@ urlpatterns = [
     path('medicine-histories/', medicine_view.MedicineHistoryView.as_view(), name='medicine-histories'),
     path('medicine-delete-history/<pk>/', medicine_view.delete_medicine_history, name='medicine-delete-history'),
 
-    path('create-stock-less/',stockless_view.CreateStockLessView.as_view(),name="create-stock-less")
+    path('create-stock-less/',stockless_view.CreateStockLessView.as_view(),name="create-stock-less"),
+    path('stock-less-list/',stockless_view.StockLessList.as_view(),name="stock-less-list")
 ]
