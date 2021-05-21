@@ -1,0 +1,48 @@
+{% extends 'base.html' %} {% block content %}
+<style>
+  .title {
+    text-align: center;
+  }
+  .sub-title1 {
+    text-align: left;
+  }
+  .sub-title2 {
+    text-align: right;
+    margin-top: -28px;
+  }
+  .detail {
+    text-align: center;
+  }
+  .detail_wrapper {
+    margin: auto;
+  }
+  .display{
+      line-height: 150%;
+      font-size:16px
+  }
+</style>
+
+<div class="container detail_wrapper">
+<h6 class="text-center mt-4 "> Medicine Detail</h6>
+  <div class="row">
+    <div class="col-md-2"></div>
+    <div class="card col-md-8 col-sm-12 col-lg-8 mt-4" >
+      <div class="card-body">
+        <h5 class="card-title title">{{medicine.medicine_name}}</h5>
+         <h6 class="card-title title">{{medicine.company_name}}</h6>
+        <div>
+          <h6 class="card-subtitle sub-title1 mb-2 text-muted">
+            Original Price: {{medicine.original_price}}
+          </h6>
+          <h6 class="card-subtitle sub-title2 mb-2 text-muted">
+            Selling Price: {{medicine.selling_price}}
+          </h6>
+        </div>
+          <hr>
+        <p class="card-text detail mt-4 lh-lg">{{medicine.description}}</p>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
+{% endblock %}

@@ -60,6 +60,8 @@ class CreateSalesManagement(View):
         original_price = request.POST.get('Oprice', None)
         selling_price = request.POST.get('Sprice', None)
         number_of_medicine = request.POST.get('Nmedicine', None)
+        expire_date = str(request.POST.get('edate', None))
+        edate = " ".join(str(expire_date).split("/")[::-1])
         # sell_at_a_time = request.POST.get('Smedicine', None)
         medicine = Medicine.objects.create(
             medicine_name=medicine_name,
@@ -68,6 +70,7 @@ class CreateSalesManagement(View):
             original_price=float(original_price),
             selling_price=float(selling_price),
             number_of_medicine=int(number_of_medicine),
+            expire_date=edate
         )
         medicine.save()
         messages.success(request, "Created medicine successfully.")
@@ -192,6 +195,9 @@ def delete_medicine_history(request, pk):
     messages.success(request, 'Successfully Deleted.')
     return redirect('medicine-histories')
 
+def medicine_detail(request,pk):
+    medicine = Medicine.objects.get(id=pk)
+    return render(request,'medicine/medicine_detail.html',{'medicine':medicine})
 
 # helper function
 

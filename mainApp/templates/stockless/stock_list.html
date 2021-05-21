@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{#{% load static %}#}
+{% load id_filter %}
 
 {% block content %}
 
@@ -35,7 +35,7 @@
             <th>Quantity</th>
             <th>Balance</th>
             <th>Is Served</th>
-            <th>Operation</th>
+            <!-- <th>Operation</th> -->
         </tr>
         </thead>
         <tbody id="tbody">
@@ -43,13 +43,13 @@
             {% if  stock.customer %}
                 <tr>
                     <td>#{{ forloop.counter }} </td>
-                    <td>{{ stock.customer }}</td>
+                    <td><a href="{% url 'customer-profile' stock.customer|id_filter %}">{{ stock.customer}}</a></td>
                     <td>{{ stock.medicine_name }}</td>
                     <td>{{ stock.company_name }}</td>
                     <td>{{ stock.quantity }}</td>
                     <td>{{ stock.balance }}</td>
                     <td>{{ stock.is_served }}</td>
-                    <td style="text-align: center">
+                    <!-- <td style="text-align: center">
                         <a href="">
                             <span class="alert-danger" data-feather="trash"></span>
                         </a>
@@ -58,7 +58,7 @@
                             <span id="modal-form" class="alert-info"
                                   data-feather="edit"></span>
                         </a>
-                    </td>
+                    </td> -->
                 </tr>
             {% endif %}
         {% endfor %}

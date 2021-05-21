@@ -44,7 +44,7 @@
             {% if  customer.customer_name %}
                 <tr>
                     <td>#{{ forloop.counter }} </td>
-                    <td>{{ customer.customer_name }}</td>
+                    <td><a href="{% url 'customer-profile' customer.id %}">{{ customer.customer_name }}</a></td>
                     <td>{{ customer.address }}</td>
                     <td>{{ customer.phone_number }}</td>
                     <td>{{ customer.medicine_price }}</td>

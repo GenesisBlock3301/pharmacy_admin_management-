@@ -14,6 +14,7 @@ urlpatterns = [
     path('delete-customer/<int:pk>/', customer_view.delete_customer, name='delete-customer'),
     path('customer-histories/', customer_view.CustomerHistoryView.as_view(), name='customer-histories'),
     path('customer-histories-delete/<int:pk>/', customer_view.delete_customer_history, name='customer-histories-delete'),
+    path('customer-profile/<int:pk>/',customer_view.customer_profile,name='customer-profile'),
 
     path('create-medicine/', medicine_view.CreateSalesManagement.as_view(), name='create-medicine'),
     path('medicine-list/', medicine_view.SalesManagementList.as_view(), name='medicine-list'),
@@ -21,6 +22,7 @@ urlpatterns = [
     path('delete-medicine/<int:pk>/', medicine_view.delete_medicine, name='delete-medicine'),
     path('medicine-histories/', medicine_view.MedicineHistoryView.as_view(), name='medicine-histories'),
     path('medicine-delete-history/<pk>/', medicine_view.delete_medicine_history, name='medicine-delete-history'),
+    path('medicine_detail/<int:pk>/',medicine_view.medicine_detail,name="medicine-detail"),
 
     path('create-stock-less/',stockless_view.CreateStockLessView.as_view(),name="create-stock-less"),
     path('stock-less-list/',stockless_view.StockLessList.as_view(),name="stock-less-list")

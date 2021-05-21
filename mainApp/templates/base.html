@@ -14,6 +14,7 @@
     <!-- Custom styles for this template -->
     <link href="{% static './dashboard/dashboard.css' %}" rel="stylesheet">
     <link href="{% static './table/fontawasome.css' %}" rel="stylesheet">
+    <link href="{% static './table/profile.css' %}" rel="stylesheet">
     {#    <script src="https://unpkg.com/feather-icons"></script>#}
     {#    <script src="https://code.jquery.com/jquery-3.3.1.js"#}
     {#            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="#}
@@ -103,7 +104,13 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'medicine-list' %}">
                             <span data-feather="file-text"></span>
-                            Medicine detail activity
+                            Medicine List
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'stock-less-list' %}">
+                            <span data-feather="file-text"></span>
+                            Stock-Less Medicine
                         </a>
                     </li>
                     <li class="nav-item">

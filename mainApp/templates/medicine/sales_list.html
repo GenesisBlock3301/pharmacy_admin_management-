@@ -30,9 +30,10 @@
         <tr>
             <th>No.</th>
             <th>Medicine name</th>
-            <th>Description</th>
+            <!-- <th>Description</th> -->
             <th>Location</th>
             <th>Stock Medicine</th>
+            <th>Expire Date</th>
             <th>Sell Medicine</th>
             <th>Original Price</th>
             <th>Selling Price</th>
@@ -46,14 +47,15 @@
         {% for medicine in medicines %}
             <tr>
                 <td>#{{ forloop.counter }}</td>
-                <td>{{ medicine.medicine_name }}</td>
-                <td>{{ medicine.description }}</td>
+                <td><a href="{% url 'medicine-detail' medicine.id %}">{{ medicine.medicine_name }}</a></td>
+                <!-- <td>{{ medicine.description }}</td> -->
                 <td>{{ medicine.location }}</td>
                 {% if medicine.number_of_medicine < 20 %}
                     <td style="background-color: red;color: white;font-weight: 600">{{ medicine.number_of_medicine }}</td>
                 {% else %}
                     <td>{{ medicine.number_of_medicine }}</td>
                 {% endif %}
+                <td>{{ medicine.expire_date }}</td>
                 <td>{{ medicine.sold_number_of_medicine }}</td>
                 <td>{{ medicine.original_price }}৳</td>
                 <td>{{ medicine.selling_price }}৳</td>

@@ -13,6 +13,7 @@ class Medicine(TimeStamp):
     selling_price = models.FloatField(blank=True, null=True)
     sold_number_of_medicine = models.IntegerField(default=0, blank=True, null=True)
     sold_at_a_time = models.IntegerField(default=0, blank=True, null=True)
+    expire_date = models.DateField(blank=True,null=True)
 
     class Meta:
         ordering = ('-created_at',)
