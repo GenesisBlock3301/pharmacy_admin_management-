@@ -19,7 +19,15 @@
     {#    <script src="https://code.jquery.com/jquery-3.3.1.js"#}
     {#            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="#}
     {#            crossorigin="anonymous"></script>#}
-
+    <script src="{% static './table/jquery.min.js' %}"></script>
+    <STYLE>
+        .nav-link:hover {
+            color: #0dcaf0;
+        }
+        {#.nav-link:active{#}
+        {#    color: #0dcaf0;#}
+        {#}#}
+    </STYLE>
 </head>
 <body>
 
@@ -48,7 +56,7 @@
             <div class="position-sticky pt-3">
                 <ul class="nav flex-column">
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="{% url 'dashboard' %}">
+                        <a class="nav-link" aria-current="page" href="{% url 'dashboard' %}">
                             <span data-feather="home"></span>
                             Dashboard
                         </a>
@@ -65,12 +73,12 @@
                             Add Employee
                         </a>
                     </li>
-{#                    <li class="nav-item">#}
-{#                        <a class="nav-link" href="{% url 'create-customer' %}">#}
-{#                            <span data-feather="plus-circle"></span>#}
-{#                            Add Customer#}
-{#                        </a>#}
-{#                    </li>#}
+                    {#                    <li class="nav-item">#}
+                    {#                        <a class="nav-link" href="{% url 'create-customer' %}">#}
+                    {#                            <span data-feather="plus-circle"></span>#}
+                    {#                            Add Customer#}
+                    {#                        </a>#}
+                    {#                    </li>#}
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'create-medicine' %}">
                             <span data-feather="plus-circle"></span>
@@ -92,37 +100,37 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'employee-list' %}">
                             <span data-feather="users"></span>
-                            View employees
+                            Employees
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'customer-list' %}">
                             <span data-feather="users"></span>
-                            View customers
+                            Customers
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'medicine-list' %}">
                             <span data-feather="file-text"></span>
-                            Medicine List
+                            Medicines
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'stock-less-list' %}">
                             <span data-feather="file-text"></span>
-                            Stock-Less Medicine
+                            Stock-Less Medicines
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'customer-histories' %}">
                             <span data-feather="activity"></span>
-                            Customer history
+                            Customer Histories
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'medicine-histories' %}">
                             <span data-feather="activity"></span>
-                            Medicine history
+                            Medicine Histories
                         </a>
                     </li>
 
@@ -137,7 +145,22 @@
 
     </div>
 </div>
+<script>
+    {#let sideBaar = document.getElementsByClassName('sidebarMenu')#}
+    let get_nav_links = document.getElementsByClassName('nav-link')
+    for (let i = 0; i < get_nav_links.length; i++) {
+        console.log(get_nav_links[i])
+        get_nav_links[i].addEventListener('click', function (e) {
+            let current_link = document.getElementsByClassName("active")
+            console.log(current_link)
+            if (current_link.length > 0) {
+                current_link[0].className = current_link[0].className.replace(' active', '')
+            }
+            this.className += " active"
 
+        })
+    }
+</script>
 <script src="{% static './table/jquery.min.js' %}"></script>
 <script src="{% static './dashboard/feather.js' %}"></script>
 <script src="{% static './dashboard/chart.min.js' %}"></script>
