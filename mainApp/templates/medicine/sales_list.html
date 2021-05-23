@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <h6 class="text-center mt-2">Medicine List</h6>
+    <h3 class="text-center mt-2" style="font-family: 'Pattaya', sans-serif;">Medicine List</h3>
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'error' %}
@@ -17,7 +17,7 @@
         <form class="row mb-4" method="GET">
             {% csrf_token %}
             <div class="col-md-6">
-                <input type="text" name="q" class="form-control" placeholder="Name or date(YYYY/MM/DD)"
+                <input type="text" name="q" class="form-control" placeholder="Medicine Name"
                        aria-label="First name">
             </div>
             <div class="col-md-2">

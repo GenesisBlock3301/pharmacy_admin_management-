@@ -4,7 +4,7 @@
     <hr class="my-4">
     <div class="row g-5 align-items-center justify-content-center">
         <div class="col-md-6 col-lg-8 col-sm-12 text-center">
-            <h4 class="mb-3">Add Employee</h4>
+            <h4 class="mb-3">Update Employee</h4>
             {% if messages %}
                 {% for message in messages %}
                     {% if message.tags == 'error' %}
@@ -14,17 +14,24 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
-            <form class="needs-validation" method="post">
+            <form class="needs-validation" enctype="multipart/form-data" method="post">
                 {% csrf_token %}
                 <div class="row g-3">
-                    <div class="col-md-6">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <label for="firstName" class="form-label">Image</label>
+                        <p>Currently choosen file: {{ employee.image }}</p>
+                        <input type="file" value="{{ employee.image.url }}" class="form-control" id="eimage" name="eimage"
+                               >
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                         <label for="firstName" class="form-label">Employee Name</label>
+                        <p style="margin-top: 35px"></p>
                         <input type="text" class="form-control" value="{{ employee.employee_name }}" id="firstName"
                                name="name" placeholder="Employee Name"
                                required>
                     </div>
 
-                    <div class="col-md-6">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                         <label for="address" class="form-label">Address</label>
                         <div class="input-group has-validation">
                             <input type="text" class="form-control" value="{{ employee.address }}" name="address"
@@ -33,7 +40,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                         <label for="email" class="form-label">Phone Number</label>
                         <input type="text" required class="form-control" value="{{ employee.phone_number }}"
                                name="phonenumber" id="phonenumber"
@@ -47,11 +54,12 @@
                                placeholder="Salary">
                     </div>
 
-                    <div class="col-md-6">
-                        <label for="payment" class="form-label">Payment</label>
-                        <input type="number" name="payment" value="{{ employee.payment }}" required class="form-control"
-                               id="payment"
-                               placeholder="Payment">
+                    <div class="form-group col-sm-12 col-md-6 col-lg-6">
+                        <label class="form-label" for="exampleFormControlSelect1">Payment Status</label>
+                        <select name="payment" class="form-control" id="exampleFormControlSelect1">
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                        </select>
                     </div>
                 </div>
                 <hr class="my-4">
@@ -60,5 +68,13 @@
         </div>
     </div>
     <hr class="my-4">
-    {#    </div>#}
+    <script>
+        let selects = document.getElementById('exampleFormControlSelect1')
+        console.log(selects[0])
+                {% if employee.payment == "Yes" %}
+                    selects[0].setAttribute('selected','')
+                    {% else %}
+                    selects[1].setAttribute('selected','')
+                {% endif %}
+    </script>
 {% endblock %}

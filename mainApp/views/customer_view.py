@@ -145,6 +145,7 @@ def delete_customer_history(request, pk):
     messages.success(request, 'Successfully deleted')
     return redirect("customer-list")
 
-def customer_profile(request,pk):
+
+def customer_profile(request, pk):
     customer = Customer.objects.get(id=pk)
-    return render(request,'customer/customer_profile.html',{'customer':customer})
+    return render(request, 'customer/customer_profile.html', {'customer': customer})

@@ -116,6 +116,8 @@ class UpdateMedicine(View):
         # get or error handle
         medicine = get_object_or_404(Medicine, pk=pk)
         customer_name = request.POST.get('cname', None)
+        company_name = request.POST.get('coname', None)
+        # description = request.POST.get('description', None)
         address = request.POST.get('address')
         phone_number = request.POST.get('phonenumber')
         try:
@@ -155,7 +157,7 @@ class UpdateMedicine(View):
             medicine.save()
             messages.success(request, "Successfully updated")
             return redirect('medicine-histories')
-        return redirect("medicine-list")
+        return redirect("customer-list")
 
 
 # delete medicine from salesManagement model

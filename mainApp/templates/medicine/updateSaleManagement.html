@@ -21,12 +21,28 @@
                                    required>
                         </div>
                     </div>
-                    <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="col-md-6 col-lg-6 col-sm-12">
+                        <label for="address" class="form-label">Company Name</label>
+                        <div class="input-group has-validation">
+                            <input type="text" class="form-control" name="coname" id="location"
+                                   placeholder="Company Name" value="{{ medicine.company_name }}"
+                                   required>
+                        </div>
+                    </div>
+{#                    <div class="col-md-6 col-lg-6 col-sm-12">#}
+{#                        <label for="address" class="form-label">Descriptions</label>#}
+{#                        <div class="input-group has-validation">#}
+{#                            <input type="text" class="form-control" name="descriptions" id="location"#}
+{#                                   placeholder="Description" value="{{ medicine.description }}"#}
+{#                                   required>#}
+{#                        </div>#}
+{#                    </div>#}
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                         <label for="address" class="form-label">Customer Name</label>
                         <div class="input-group has-validation">
                             <input type="text" class="form-control" name="cname" id="cname"
                                    placeholder="Customer Name"
-                                   required>
+                                   >
                         </div>
                     </div>
                     <div class="col-md-6">
@@ -34,13 +50,13 @@
                         <div class="input-group has-validation">
                             <input type="text" class="form-control" name="address"
                                    id="address" placeholder="Address"
-                                   required>
+                                  >
                         </div>
                     </div>
 
                     <div class="col-md-6">
                         <label for="email" class="form-label">Phone Number</label>
-                        <input type="text" required class="form-control"
+                        <input type="text"  class="form-control"
                                name="phonenumber" id="phonenumber"
                                placeholder="Phone Number">
                     </div>
@@ -53,12 +69,12 @@
 
                     <div class="col-md-6">
                         <label for="payment" class="form-label">Selling Price</label>
-                        <input type="number" name="Sprice" required class="form-control" id="payment"
+                        <input type="number" name="Sprice"  class="form-control" id="payment"
                                value="{{ medicine.selling_price }}" placeholder="Selling price">
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12">
                         <label for="salary" class="form-label">Stock Medicine</label>
-                        <input type="number" name="Nmedicine" required class="form-control" id="salary"
+                        <input type="number" name="Nmedicine" class="form-control" id="salary"
                                value="{{ medicine.number_of_medicine }}" placeholder="Number of medicine">
                     </div>
                     <div class="col-md-6 col-lg-6 col-sm-12">

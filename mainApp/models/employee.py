@@ -3,7 +3,7 @@ from mainApp.models.common import Common, TimeStamp
 
 
 class Employee(Common, TimeStamp):
-    image = models.ImageField(upload_to='employee/')
+    image = models.FileField(upload_to='employee/',blank=True,null=True)
     employee_name = models.CharField(max_length=255)
     salary_amount = models.FloatField()
     payment = models.CharField(default='', max_length=255)

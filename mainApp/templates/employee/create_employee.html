@@ -4,7 +4,7 @@
     <hr class="my-4">
     <div class="row g-5 align-items-center justify-content-center">
         <div class="col-md-6 col-lg-8 col-sm-12 text-center">
-            <h4 class="mb-3">Add Employee</h4>
+            <h1 class="mb-3" style="font-family: 'Pattaya', sans-serif;">Add Employee</h1>
             {% if messages %}
                 {% for message in messages %}
                     {% if message.tags == 'error' %}
@@ -14,16 +14,21 @@
                     {% endif %}
                 {% endfor %}
             {% endif %}
-            <form class="needs-validation" method="post" action="{% url 'create-employee' %}">
+            <form class="needs-validation" method="post" enctype="multipart/form-data" action="{% url 'create-employee' %}">
                 {% csrf_token %}
                 <div class="row g-3">
-                    <div class="col-sm-12">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
+                        <label for="firstName" class="form-label">Image</label>
+                        <input type="file" class="form-control" id="eimage" name="eimage"
+                               required>
+                    </div>
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                         <label for="firstName" class="form-label">Employee Name</label>
                         <input type="text" class="form-control" id="firstName" name="name" placeholder="Employee Name"
                                required>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                         <label for="address" class="form-label">Address</label>
                         <div class="input-group has-validation">
                             <input type="text" class="form-control" name="address" id="address" placeholder="Address"
@@ -31,7 +36,7 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
+                    <div class="col-sm-12 col-md-6 col-lg-6">
                         <label for="email" class="form-label">Phone Number</label>
                         <input type="text" required class="form-control" name="phonenumber" id="phonenumber"
                                placeholder="Phone Number">

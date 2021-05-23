@@ -14,12 +14,14 @@ class CreateEmployee(View):
 
         try:
             name = request.POST.get('name', None)
+            eimage = request.FILES.get('eimage', None)
             address = request.POST.get('address', None)
             phone_number = request.POST.get('phonenumber', None)
             salary = request.POST.get('salary', None)
             payment = request.POST.get('payment', None)
-            print(name, address, phone_number, salary, payment)
+            print(eimage,name, address, phone_number, salary, payment)
             employee = Employee.objects.create(
+                image=eimage,
                 employee_name=name,
                 address=address,
                 phone_number=phone_number,
@@ -57,10 +59,7 @@ class EmployeeList(View):
             employees = Paginator.page(paginator.num_pages)
         return render(request, 'employee/employee_list.html', {
             'employees': employees,
-            # 'total_selling': total_selling,
-            # 'total_expense': total_expense,
         })
-        # return render(request, 'employee/employee_list.html')
 
 
 class UpdateEmployee(View):
@@ -72,11 +71,13 @@ class UpdateEmployee(View):
         # get or error handle
         employee = get_object_or_404(Employee, pk=pk)
         name = request.POST.get('name')
+        eimage = request.FILES.get('eimage', None)
         address = request.POST.get('address')
         phone_number = request.POST.get('phonenumber')
         salary = request.POST.get('salary')
         payment = request.POST.get('payment')
         employee.employee_name = name
+        employee.image = eimage
         employee.address = address
         employee.phone_number = phone_number
         employee.salary_amount = float(salary)
@@ -91,3 +92,8 @@ def delete_employee(request, pk):
     employee.delete()
     messages.success(request, 'Successfully deleted')
     return redirect("employee-list")
+
+
+def employee_profile(request, pk):
+    employee = Employee.objects.get(id=pk)
+    return render(request, 'employee/employee_profile.html', {'employee': employee})

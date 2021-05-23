@@ -3,7 +3,7 @@
 
 {% block content %}
 
-    <h6 class="text-center mt-2">Employee List</h6>
+    <h3 class="text-center mt-2" style="font-family: 'Pattaya', sans-serif;">Employee List</h3>
     {% if messages %}
         {% for message in messages %}
             {% if message.tags == 'error' %}
@@ -43,7 +43,7 @@
             {% if  employee.employee_name %}
                 <tr>
                     <td>#{{ forloop.counter }} </td>
-                    <td>{{ employee.employee_name }}</td>
+                    <td><a href="{% url 'employee-profile' employee.id %}">{{ employee.employee_name }}</a></td>
                     <td>{{ employee.address }}</td>
                     <td>{{ employee.phone_number }}</td>
                     <td>{{ employee.salary_amount }}৳</td>

@@ -20,13 +20,21 @@
     {#            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="#}
     {#            crossorigin="anonymous"></script>#}
     <script src="{% static './table/jquery.min.js' %}"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&family=Roboto&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Pattaya&family=Reggae+One&family=Roboto&display=swap"
+          rel="stylesheet">
     <STYLE>
         .nav-link:hover {
             color: #0dcaf0;
         }
-        {#.nav-link:active{#}
-        {#    color: #0dcaf0;#}
-        {#}#}
+
+        body {
+            font-family: 'Pattaya', sans-serif;
+            font-family: 'Reggae One', cursive;
+
+        }
     </STYLE>
 </head>
 <body>
@@ -38,7 +46,7 @@
             aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
-    <ul class="navbar-nav px-3 flex-row">
+    <ul class="navbar-nav px-3 flex-row ">
         {% if user.is_authenticated %}
             <li class="nav-item text-nowrap">
                 <a class="nav-link disabled" style="color: white" href="#">{{ user.username }}</a>
@@ -148,17 +156,13 @@
 <script>
     {#let sideBaar = document.getElementsByClassName('sidebarMenu')#}
     let get_nav_links = document.getElementsByClassName('nav-link')
-    for (let i = 0; i < get_nav_links.length; i++) {
-        console.log(get_nav_links[i])
-        get_nav_links[i].addEventListener('click', function (e) {
-            let current_link = document.getElementsByClassName("active")
-            console.log(current_link)
-            if (current_link.length > 0) {
-                current_link[0].className = current_link[0].className.replace(' active', '')
-            }
-            this.className += " active"
-
-        })
+    console.log(get_nav_links.length)
+    for (var i = 0; i < get_nav_links.length; i++) {
+        get_nav_links[i].addEventListener("click", function () {
+            var current = document.getElementsByClassName("active");
+            current[0].className = current[0].className.replace(" active", "");
+            this.className += " active";
+        });
     }
 </script>
 <script src="{% static './table/jquery.min.js' %}"></script>
