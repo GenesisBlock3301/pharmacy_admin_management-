@@ -75,3 +75,15 @@ class StockLessList(View):
         return render(request, 'stockless/stock_list.html', {
             'stock_less': stock_less,
         })
+
+
+def stockless_served(request, pk):
+    stockless = StockLessMedicine.objects.get(id=pk)
+    stockless.is_served = True
+    customer = Customer.objects.get(customer_name=stockless.customer)
+    customer.payment += stockless.balance()
+    customer.save()
+    stockless.quantity = 0
+    stockless.save()
+    print(stockless.balance())
+    return redirect('stock-less-list')

@@ -6,7 +6,7 @@
             background-size: cover;
             min-height: 100vh;
             {#position: absolute;#}
-            z-index: -1;
+            background-attachment: fixed;
             '>
         <h6 class="text-center mt-2">Stock-less List</h6>
         {% if messages %}
@@ -55,17 +55,11 @@
                         <td>{{ stock.company_name }}</td>
                         <td>{{ stock.quantity }}</td>
                         <td>{{ stock.balance }}</td>
-                        <td>{{ stock.is_served }}</td>
-                        <!-- <td style="text-align: center">
-                            <a href="">
-                                <span class="alert-danger" data-feather="trash"></span>
-                            </a>
-                            <a style="margin-left: 10px" href=""
-                            >
-                                <span id="modal-form" class="alert-info"
-                                      data-feather="edit"></span>
-                            </a>
-                        </td> -->
+                        {% if stock.is_served %}
+                            <td><a class="disabled btn" href="">{{ 'Served' }}</a></td>
+                        {% else %}
+                            <td><a class="btn btn-primary" style="text-decoration: none;" href="{% url 'served' stock.id %}">{{ stock.is_served }}</a></td>
+                        {% endif %}
                     </tr>
                 {% endif %}
             {% endfor %}

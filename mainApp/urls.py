@@ -28,5 +28,6 @@ urlpatterns = [
     path('medicine_detail/<int:pk>/', medicine_view.medicine_detail, name="medicine-detail"),
 
     path('create-stock-less/', stockless_view.CreateStockLessView.as_view(), name="create-stock-less"),
-    path('stock-less-list/', stockless_view.StockLessList.as_view(), name="stock-less-list")
+    path('stock-less-list/', stockless_view.StockLessList.as_view(), name="stock-less-list"),
+    path('served/<pk>/', stockless_view.stockless_served, name="served")
 ]

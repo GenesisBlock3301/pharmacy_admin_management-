@@ -131,7 +131,7 @@ class CustomerHistoryView(View):
             all_history = paginator.page(1)
         except EmptyPage:
             all_history = Paginator.page(paginator.num_pages)
-        print("Alll histories", all_history)
+        # print("Alll histories", all_history)
         return render(request, 'customer/customer_history.html', {
             'histories': all_history,
             # 'total_selling': total_selling,
@@ -149,3 +149,4 @@ def delete_customer_history(request, pk):
 def customer_profile(request, pk):
     customer = Customer.objects.get(id=pk)
     return render(request, 'customer/customer_profile.html', {'customer': customer})
+

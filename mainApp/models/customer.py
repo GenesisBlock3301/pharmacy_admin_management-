@@ -12,7 +12,7 @@ class Customer(Common, TimeStamp):
         return self.customer_name
 
     class Meta:
-        ordering = ('-created_at',)
+        ordering = ('-updated_at',)
 
     def customer_due(self):
         if self.medicine_price > self.payment:
