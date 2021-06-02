@@ -43,7 +43,7 @@
             {% if  employee.employee_name %}
                 <tr>
                     <td>#{{ forloop.counter }} </td>
-                    <td><a href="{% url 'employee-profile' employee.id %}">{{ employee.employee_name }}</a></td>
+                    <td><a style="text-decoration: none" href="{% url 'employee-profile' employee.id %}">{{ employee.employee_name }}</a></td>
                     <td>{{ employee.address }}</td>
                     <td>{{ employee.phone_number }}</td>
                     <td>{{ employee.salary_amount }}৳</td>

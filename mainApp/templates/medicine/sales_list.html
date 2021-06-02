@@ -1,137 +1,146 @@
 {% extends 'base.html' %}
-{#{% load static %}#}
+{% load static %}
+{% load tz %}
 
 {% block content %}
-
-    <h3 class="text-center mt-2" style="font-family: 'Pattaya', sans-serif;">Medicine List</h3>
-    {% if messages %}
-        {% for message in messages %}
-            {% if message.tags == 'error' %}
-                <div class="alert alert-danger">{{ message }}</div>
-            {% else %}
-                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    <div class="col-lg-6 col-md-6 col-sm-12 text-center mb-4 align-items-center">
-        <form class="row mb-4" method="GET">
-            {% csrf_token %}
-            <div class="col-md-6">
-                <input type="text" name="q" class="form-control" placeholder="Medicine Name"
-                       aria-label="First name">
-            </div>
-            <div class="col-md-2">
-                <input type="submit" class="btn btn-primary" VALUE="Search"/>
-            </div>
-        </form>
-    </div>
-    <table id="example" class="table table-bordered" style="width:100%">
-        <thead>
-        <tr>
-            <th>No.</th>
-            <th>Medicine name</th>
-            <!-- <th>Description</th> -->
-            <th>Location</th>
-            <th>Stock Medicine</th>
-            <th>Expire Date</th>
-            <th>Sell Medicine</th>
-            <th>Original Price</th>
-            <th>Selling Price</th>
-            <th>Expense</th>
-            <th>Selling</th>
-            <th>Date</th>
-            <th>Operation</th>
-        </tr>
-        </thead>
-        <tbody id="tbody">
-        {% for medicine in medicines %}
-            <tr>
-                <td>#{{ forloop.counter }}</td>
-                <td><a href="{% url 'medicine-detail' medicine.id %}">{{ medicine.medicine_name }}</a></td>
-                <!-- <td>{{ medicine.description }}</td> -->
-                <td>{{ medicine.location }}</td>
-                {% if medicine.number_of_medicine < 20 %}
-                    <td style="background-color: red;color: white;font-weight: 600">{{ medicine.number_of_medicine }}</td>
+    <div
+            style='background: url("{% static 'images/medicine-list.jpg' %}");background-repeat: no-repeat;
+                    background-size: cover;
+                    min-height: 100vh;
+                    {#z-index: -100;#}
+                    '>
+        <h3 class="text-center mt-2" style="font-family: 'Pattaya', sans-serif;">Medicine List</h3>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger">{{ message }}</div>
                 {% else %}
-                    <td>{{ medicine.number_of_medicine }}</td>
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
                 {% endif %}
-                <td>{{ medicine.expire_date }}</td>
-                <td>{{ medicine.sold_number_of_medicine }}</td>
-                <td>{{ medicine.original_price }}৳</td>
-                <td>{{ medicine.selling_price }}৳</td>
-                <td>{{ medicine.expense }}&#2547;</td>
-                <td>{{ medicine.sold_medicine_value }}৳</td>
-                <td>{{ medicine.updated_at }}</td>
-                <td style="text-align: center">
-                    <a href="{% url 'delete-medicine' medicine.id %}">
-                        <span class="alert-danger" data-feather="trash"></span>
-                    </a>
-                    <a style="margin-left: 10px" href="{% url 'update-medicine' medicine.id %}"
-                    >
+            {% endfor %}
+        {% endif %}
+        <div class="col-lg-6 col-md-6 col-sm-12 text-center mb-4 align-items-center">
+            <form class="row mb-4" method="GET">
+                {% csrf_token %}
+                <div class="col-md-6">
+                    <input type="text" name="q" class="form-control" placeholder="Medicine Name"
+                           aria-label="First name">
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" class="btn btn-primary" VALUE="Search"/>
+                </div>
+            </form>
+        </div>
+        <table id="example" class="table table-bordered" style="width:100%">
+            <thead>
+            <tr>
+                <th>No.</th>
+                <th>Medicine name</th>
+                <!-- <th>Description</th> -->
+                <th>Location</th>
+                <th>Stock Medicine</th>
+                <th>Expire Date</th>
+                <th>Sell Medicine</th>
+                <th>Original Price</th>
+                <th>Selling Price</th>
+                <th>Expense</th>
+                <th>Selling</th>
+                <th>Date</th>
+                <th>Operation</th>
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            {% for medicine in medicines %}
+                <tr>
+                    <td>#{{ forloop.counter }}</td>
+                    <td><a style="text-decoration: none"
+                           href="{% url 'medicine-detail' medicine.id %}">{{ medicine.medicine_name }}</a></td>
+                    <!-- <td>{{ medicine.description }}</td> -->
+                    <td>{{ medicine.location }}</td>
+                    {% if medicine.number_of_medicine < 20 %}
+                        <td style="background-color: red;color: white;font-weight: 600">{{ medicine.number_of_medicine }}</td>
+                    {% else %}
+                        <td>{{ medicine.number_of_medicine }}</td>
+                    {% endif %}
+                    <td>{{ medicine.expire_date }}</td>
+                    <td>{{ medicine.sold_number_of_medicine }}</td>
+                    <td>{{ medicine.original_price }}৳</td>
+                    <td>{{ medicine.selling_price }}৳</td>
+                    <td>{{ medicine.expense }}&#2547;</td>
+                    <td>{{ medicine.sold_medicine_value }}৳</td>
+                    <td>{{ medicine.updated_at | localtime }}</td>
+                    <td style="text-align: center">
+                        <a href="{% url 'delete-medicine' medicine.id %}">
+                            <span class="alert-danger" data-feather="trash"></span>
+                        </a>
+                        <a style="margin-left: 10px" href="{% url 'update-medicine' medicine.id %}"
+                        >
                             <span id="modal-form" class="alert-info"
                                   data-feather="edit"></span>
-                    </a>
-                </td>
+                        </a>
+                    </td>
+                </tr>
+
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>T. Expense</th>
+                <th>T. Selling</th>
+                <th></th>
+                <th></th>
             </tr>
-
-        {% endfor %}
-        </tbody>
-        <tfoot>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>T. Expense</th>
-            <th>T. Selling</th>
-            <th></th>
-            <th></th>
-        </tr>
-        <tr>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th></th>
-            <th>{{ total_expense }}</th>
-            <th>{{ total_selling }}</th>
-            <th></th>
-            <th></th>
-        </tr>
-        </tfoot>
-    </table>
-    <nav aria-label="Page navigation example">
-        {% if medicines.has_other_pages %}
-            <ul class="pagination">
-                {% if medicines.has_previous %}
-                    <li class="page-item"><a class="page-link"
-                                             href="?page={{ medicines.previous_page_number }}">Previous</a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
-                {% endif %}
-                {% for i in medicines.paginator.page_range %}
-                    {% if medicines.number == i %}
-                        <li class="page-item disabled"><a class="page-link" href="#">{{ i }}</a></li>
+            <tr>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th></th>
+                <th>{{ total_expense }}</th>
+                <th>{{ total_selling }}</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </tfoot>
+        </table>
+        <nav aria-label="Page navigation example">
+            {% if medicines.has_other_pages %}
+                <ul class="pagination">
+                    {% if medicines.has_previous %}
+                        <li class="page-item"><a class="page-link"
+                                                 href="?page={{ medicines.previous_page_number }}">Previous</a>
+                        </li>
                     {% else %}
-                        <li class="page-item"><a href="?page={{ i }}">{{ i }}</a></li>
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
                     {% endif %}
-                {% endfor %}
-                {% if medicines.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ medicines.next_page_number }}">Next</a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                {% endif %}
+                    {% for i in medicines.paginator.page_range %}
+                        {% if medicines.number == i %}
+                            <li class="page-item disabled"><a class="page-link" href="#">{{ i }}</a></li>
+                        {% else %}
+                            <li class="page-item"><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if medicines.has_next %}
+                        <li class="page-item"><a class="page-link"
+                                                 href="?page={{ medicines.next_page_number }}">Next</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                    {% endif %}
 
-            </ul>
-        {% endif %}
-    </nav>
+                </ul>
+            {% endif %}
+        </nav>
+    </div>
 {% endblock content %}

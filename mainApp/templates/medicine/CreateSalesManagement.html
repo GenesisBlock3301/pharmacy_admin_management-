@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
     <hr class="my-4">
-    <div class="row g-5 align-items-center justify-content-center">
+    <div class="row g-5 align-items-center justify-content-center"
+         style='background: url("{% static 'images/add-medicine.jpg' %}");
+                 background-repeat: no-repeat;
+                 background-size: cover;
+                 min-height: 100vh;
+                 '>
         <div class="col-md-6 col-lg-8 col-sm-12 text-center">
-            <h1 class="mb-3"style="font-family: 'Pattaya', sans-serif;">Add Medicine</h1>
+            <h1 class="mb-3" style="font-family: 'Pattaya', sans-serif;">Add Medicine</h1>
             <form class="needs-validation" method="post" action="{% url 'create-medicine' %}">
                 {% csrf_token %}
                 <div class="row g-3">

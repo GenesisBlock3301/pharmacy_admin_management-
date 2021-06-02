@@ -63,17 +63,20 @@ class CreateSalesManagement(View):
         expire_date = str(request.POST.get('edate', None))
         edate = " ".join(str(expire_date).split("/")[::-1])
         # sell_at_a_time = request.POST.get('Smedicine', None)
-        medicine = Medicine.objects.create(
-            medicine_name=medicine_name,
-            location=location,
-            description=description,
-            original_price=float(original_price),
-            selling_price=float(selling_price),
-            number_of_medicine=int(number_of_medicine),
-            expire_date=edate
-        )
-        medicine.save()
-        messages.success(request, "Created medicine successfully.")
+        try:
+            medicine = Medicine.objects.create(
+                medicine_name=medicine_name,
+                location=location,
+                description=description,
+                original_price=float(original_price),
+                selling_price=float(selling_price),
+                number_of_medicine=int(number_of_medicine),
+                expire_date=edate
+            )
+            medicine.save()
+            messages.success(request, "Created medicine successfully.")
+        except:
+            messages.error(request,"Medicine already exists")
         return redirect('medicine-list')
 
 
@@ -91,7 +94,7 @@ class SalesManagementList(View):
         total_expense = get_expense_sum(sales)
         page = request.GET.get('page', 1)
         # call django built in pagination class
-        paginator = Paginator(sales, per_page=2)
+        paginator = Paginator(sales, per_page=5)
         try:
             all_sales = paginator.page(page)
         except PageNotAnInteger as e:
@@ -203,9 +206,11 @@ def delete_medicine_history(request, pk):
     messages.success(request, 'Successfully Deleted.')
     return redirect('medicine-histories')
 
-def medicine_detail(request,pk):
+
+def medicine_detail(request, pk):
     medicine = Medicine.objects.get(id=pk)
-    return render(request,'medicine/medicine_detail.html',{'medicine':medicine})
+    return render(request, 'medicine/medicine_detail.html', {'medicine': medicine})
+
 
 # helper function
 

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {#{% load static %}#}
-
+{% load tz %}
 {% block content %}
 
     <h3 class="text-center mt-2" style="font-family: 'Pattaya', sans-serif;">Customer List</h3>
@@ -44,13 +44,14 @@
             {% if  customer.customer_name %}
                 <tr>
                     <td>#{{ forloop.counter }} </td>
-                    <td><a href="{% url 'customer-profile' customer.id %}">{{ customer.customer_name }}</a></td>
+                    <td><a style="text-decoration: none"
+                           href="{% url 'customer-profile' customer.id %}">{{ customer.customer_name }}</a></td>
                     <td>{{ customer.address }}</td>
                     <td>{{ customer.phone_number }}</td>
                     <td>{{ customer.medicine_price }}</td>
                     <td>{{ customer.payment }}</td>
                     <td>{{ customer.customer_due }}</td>
-                    <td>{{ customer.created_at }}</td>
+                    <td>{{ customer.created_at | timezone:'Asia/Dhaka' }}</td>
                     <td style="text-align: center">
                         <a href="{% url 'delete-customer' customer.id %}">
                             <span class="alert-danger" data-feather="trash"></span>

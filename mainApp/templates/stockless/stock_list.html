@@ -1,96 +1,105 @@
 {% extends 'base.html' %}
 {% load id_filter %}
-
+{% load static %}
 {% block content %}
-
-    <h6 class="text-center mt-2">Stock-less List</h6>
-    {% if messages %}
-        {% for message in messages %}
-            {% if message.tags == 'error' %}
-                <div class="alert alert-danger">{{ message }}</div>
-            {% else %}
-                <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-            {% endif %}
-        {% endfor %}
-    {% endif %}
-    <div class="col-lg-6 col-md-6 col-sm-12 text-center mb-4 align-items-center">
-        <form class="row mb-4" method="GET">
-            {% csrf_token %}
-            <div class="col-md-4">
-                <input type="text" name="q" class="form-control" placeholder="Name"
-                       aria-label="First name">
-            </div>
-            <div class="col-md-2">
-                <input type="submit" class="form-control btn btn-primary" VALUE="Search"/>
-            </div>
-        </form>
-    </div>
-    <table id="example" class="table table-bordered" style="width:100%">
-        <thead>
-        <tr>
-            <th>ID</th>
-            <th>Customer name</th>
-            <th>Medicine Name</th>
-            <th>Company name</th>
-            <th>Quantity</th>
-            <th>Balance</th>
-            <th>Is Served</th>
-            <!-- <th>Operation</th> -->
-        </tr>
-        </thead>
-        <tbody id="tbody">
-        {% for stock in stock_less %}
-            {% if  stock.customer %}
-                <tr>
-                    <td>#{{ forloop.counter }} </td>
-                    <td><a href="{% url 'customer-profile' stock.customer|id_filter %}">{{ stock.customer}}</a></td>
-                    <td>{{ stock.medicine_name }}</td>
-                    <td>{{ stock.company_name }}</td>
-                    <td>{{ stock.quantity }}</td>
-                    <td>{{ stock.balance }}</td>
-                    <td>{{ stock.is_served }}</td>
-                    <!-- <td style="text-align: center">
-                        <a href="">
-                            <span class="alert-danger" data-feather="trash"></span>
-                        </a>
-                        <a style="margin-left: 10px" href=""
-                        >
-                            <span id="modal-form" class="alert-info"
-                                  data-feather="edit"></span>
-                        </a>
-                    </td> -->
-                </tr>
-            {% endif %}
-        {% endfor %}
-        </tbody>
-        <tfoot>
-        </tfoot>
-    </table>
-    <nav aria-label="Page navigation example">
-        {% if stock_less.has_other_pages %}
-            <ul class="pagination">
-                {% if stock_less.has_previous %}
-                    <li class="page-item"><a class="page-link"
-                                             href="?page={{ stock_less.previous_page_number }}">Previous</a>
-                    </li>
+    <div style='background: url("{% static 'images/medicine-list.jpg' %}");background-repeat: no-repeat;
+            background-size: cover;
+            min-height: 100vh;
+            {#position: absolute;#}
+            z-index: -1;
+            '>
+        <h6 class="text-center mt-2">Stock-less List</h6>
+        {% if messages %}
+            {% for message in messages %}
+                {% if message.tags == 'error' %}
+                    <div class="alert alert-danger">{{ message }}</div>
                 {% else %}
-                    <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
                 {% endif %}
-                {% for i in stock_less.paginator.page_range %}
-                    {% if stock_less.number == i %}
-                        <li class="page-item disabled"><a class="page-link" href="#">{{ i }}</a></li>
-                    {% else %}
-                        <li class="page-item"><a href="?page={{ i }}">{{ i }}</a></li>
-                    {% endif %}
-                {% endfor %}
-                {% if stock_less.has_next %}
-                    <li class="page-item"><a class="page-link" href="?page={{ stock_less.next_page_number }}">Next</a>
-                    </li>
-                {% else %}
-                    <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
-                {% endif %}
-
-            </ul>
+            {% endfor %}
         {% endif %}
-    </nav>
+        <div class="col-lg-6 col-md-6 col-sm-12 text-center mb-4 align-items-center">
+            <form class="row mb-4" method="GET">
+                {% csrf_token %}
+                <div class="col-md-4">
+                    <input type="text" name="q" class="form-control" placeholder="Name"
+                           aria-label="First name">
+                </div>
+                <div class="col-md-2">
+                    <input type="submit" class="form-control btn btn-primary" VALUE="Search"/>
+                </div>
+            </form>
+        </div>
+        <table id="example" class="table table-bordered" style="width:100%">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Customer name</th>
+                <th>Medicine Name</th>
+                <th>Company name</th>
+                <th>Quantity</th>
+                <th>Balance</th>
+                <th>Is Served</th>
+                <!-- <th>Operation</th> -->
+            </tr>
+            </thead>
+            <tbody id="tbody">
+            {% for stock in stock_less %}
+                {% if  stock.customer %}
+                    <tr>
+                        <td>#{{ forloop.counter }} </td>
+                        <td><a style="text-decoration: none"
+                               href="{% url 'customer-profile' stock.customer|id_filter %}">{{ stock.customer }}</a>
+                        </td>
+                        <td>{{ stock.medicine_name }}</td>
+                        <td>{{ stock.company_name }}</td>
+                        <td>{{ stock.quantity }}</td>
+                        <td>{{ stock.balance }}</td>
+                        <td>{{ stock.is_served }}</td>
+                        <!-- <td style="text-align: center">
+                            <a href="">
+                                <span class="alert-danger" data-feather="trash"></span>
+                            </a>
+                            <a style="margin-left: 10px" href=""
+                            >
+                                <span id="modal-form" class="alert-info"
+                                      data-feather="edit"></span>
+                            </a>
+                        </td> -->
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </tbody>
+            <tfoot>
+            </tfoot>
+        </table>
+        <nav aria-label="Page navigation example">
+            {% if stock_less.has_other_pages %}
+                <ul class="pagination">
+                    {% if stock_less.has_previous %}
+                        <li class="page-item"><a class="page-link"
+                                                 href="?page={{ stock_less.previous_page_number }}">Previous</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Previous</a></li>
+                    {% endif %}
+                    {% for i in stock_less.paginator.page_range %}
+                        {% if stock_less.number == i %}
+                            <li class="page-item disabled"><a class="page-link" href="#">{{ i }}</a></li>
+                        {% else %}
+                            <li class="page-item"><a href="?page={{ i }}">{{ i }}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if stock_less.has_next %}
+                        <li class="page-item"><a class="page-link"
+                                                 href="?page={{ stock_less.next_page_number }}">Next</a>
+                        </li>
+                    {% else %}
+                        <li class="page-item disabled"><a class="page-link" href="#">Next</a></li>
+                    {% endif %}
+
+                </ul>
+            {% endif %}
+        </nav>
+    </div>
 {% endblock content %}

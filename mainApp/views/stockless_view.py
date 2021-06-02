@@ -47,7 +47,7 @@ class CreateStockLessView(View):
         customer.medicine_price = customer_new_due + customer.customer_due()
         customer.save()
 
-        return redirect('customer-list')
+        return redirect('stock-less-list')
 
 
 class StockLessList(View):
@@ -58,7 +58,7 @@ class StockLessList(View):
         # if search anything this time only work this block
         if search:
             stock_less = StockLessMedicine.objects.filter(
-                Q(customer__icontains=search)
+                customer__icontains=search
             ).distinct()
         # total_selling = get_selling_sum(medicine)
         # total_expense = get_expense_sum(medicine)
