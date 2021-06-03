@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load static %}
 {% load tz %}
+{% load id_filter %}
 
 {% block content %}
     <div
@@ -62,13 +63,17 @@
                     {% else %}
                         <td>{{ medicine.number_of_medicine }}</td>
                     {% endif %}
-                    <td>{{ medicine.expire_date }}</td>
+                    {% if medicine.expire_date|expire_date %}
+                        <td style="background: red;color: white">{{ medicine.expire_date }}</td>
+                    {% else %}
+                        <td>{{ medicine.expire_date }}</td>
+                    {% endif %}
                     <td>{{ medicine.sold_number_of_medicine }}</td>
                     <td>{{ medicine.original_price }}৳</td>
                     <td>{{ medicine.selling_price }}৳</td>
                     <td>{{ medicine.expense }}&#2547;</td>
                     <td>{{ medicine.sold_medicine_value }}৳</td>
-                    <td>{{ medicine.updated_at | timezone:'Asia/Dhaka'  }}</td>
+                    <td>{{ medicine.updated_at | timezone:'Asia/Dhaka' }}</td>
                     <td style="text-align: center">
                         <a href="{% url 'delete-medicine' medicine.id %}">
                             <span class="alert-danger" data-feather="trash"></span>
