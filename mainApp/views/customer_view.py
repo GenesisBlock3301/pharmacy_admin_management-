@@ -5,6 +5,7 @@ from mainApp.models.medicine import MedicineHistory
 from django.contrib import messages
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
+from mainApp.models.stockless import StockLessMedicine
 
 
 class CreateCustomer(View):
@@ -105,6 +106,8 @@ class UpdateCustomer(View):
 
 def delete_customer(request, pk):
     customer = get_object_or_404(Customer, pk=pk)
+    stock_less = StockLessMedicine.objects.get(customer=customer)
+    stock_less.delete()
     customer.delete()
     messages.success(request, 'Successfully deleted')
     return redirect("customer-list")
@@ -149,4 +152,3 @@ def delete_customer_history(request, pk):
 def customer_profile(request, pk):
     customer = Customer.objects.get(id=pk)
     return render(request, 'customer/customer_profile.html', {'customer': customer})
-
