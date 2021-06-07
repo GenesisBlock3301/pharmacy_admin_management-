@@ -39,6 +39,7 @@
                 <th>Medicine name</th>
                 <!-- <th>Description</th> -->
                 <th>Location</th>
+                <th>Category</th>
                 <th>Stock Medicine</th>
                 <th>Expire Date</th>
                 <th>Sell Medicine</th>
@@ -58,6 +59,7 @@
                            href="{% url 'medicine-detail' medicine.id %}">{{ medicine.medicine_name }}</a></td>
                     <!-- <td>{{ medicine.description }}</td> -->
                     <td>{{ medicine.location }}</td>
+                    <td>{{ medicine.category }}</td>
                     {% if medicine.number_of_medicine < 20 %}
                         <td style="background-color: red;color: white;font-weight: 600">{{ medicine.number_of_medicine }}</td>
                     {% else %}

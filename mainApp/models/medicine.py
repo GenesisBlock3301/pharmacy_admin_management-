@@ -6,6 +6,7 @@ from mainApp.models.customer import Customer
 class Medicine(TimeStamp):
     medicine_name = models.CharField(max_length=255, unique=True, null=True, blank=True)
     company_name = models.CharField(max_length=255, null=True, blank=True)
+    category = models.CharField(max_length=255,null=True,blank=True,default='')
     description = models.TextField(blank=True, null=True, default='')
     location = models.CharField(max_length=50, null=True, blank=True)
     number_of_medicine = models.IntegerField(default=0, null=True, blank=True)

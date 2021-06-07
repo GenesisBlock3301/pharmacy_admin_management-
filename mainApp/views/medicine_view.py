@@ -56,6 +56,7 @@ class CreateSalesManagement(View):
         medicine_name = request.POST.get('Mname', None)
         company_name = request.POST.get('coname', None)
         location = request.POST.get('location', None)
+        category = request.POST.get('cat', None)
         description = request.POST.get('description', None)
         original_price = request.POST.get('Oprice', None)
         selling_price = request.POST.get('Sprice', None)
@@ -67,6 +68,7 @@ class CreateSalesManagement(View):
             medicine = Medicine.objects.create(
                 medicine_name=medicine_name,
                 location=location,
+                category=category,
                 company_name=company_name,
                 description=description,
                 original_price=float(original_price),
@@ -77,7 +79,7 @@ class CreateSalesManagement(View):
             medicine.save()
             messages.success(request, "Created medicine successfully.")
         except:
-            messages.error(request,"Medicine already exists")
+            messages.error(request, "Medicine already exists")
         return redirect('medicine-list')
 
 
@@ -88,8 +90,8 @@ class SalesManagementList(View):
         search = request.GET.get('q')
         # if search anything this time only work this block
         if search:
-            medicines= Medicine.objects.filter(
-                Q(medicine_name__icontains=search) | Q(created_at__iexact=search)
+            medicines = Medicine.objects.filter(
+                Q(medicine_name__icontains=search) | Q(category__icontains=search)
             ).distinct()
         total_selling = get_selling_sum(medicines)
         total_expense = get_expense_sum(medicines)
@@ -133,6 +135,7 @@ class UpdateMedicine(View):
                 phone_number=phone_number
             )
         location = request.POST.get('location')
+        # category = request.POST.get('location')
         original_price = request.POST.get('Oprice')
         selling_price = request.POST.get('Sprice')
         sold_at_a_time = request.POST.get('smedicine')
@@ -161,7 +164,7 @@ class UpdateMedicine(View):
             medicine.save()
             messages.success(request, "Successfully updated")
             return redirect('medicine-histories')
-        return redirect("customer-list")
+        return redirect("medicine-list")
 
 
 # delete medicine from salesManagement model

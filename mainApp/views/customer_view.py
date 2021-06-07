@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, get_object_or_404, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import View
 from mainApp.models.customer import Customer, CustomerHistory
 from mainApp.models.medicine import MedicineHistory
